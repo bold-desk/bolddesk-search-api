@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33927.249
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoldDesk.Search.Api", "src\SearchApi\BoldDesk.Search.Api.csproj", "{50CFC89F-D956-4F6B-8535-FEA4C6121DCB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoldDesk.Search.DIResolver", "src\DIResolver\BoldDesk.Search.DIResolver.csproj", "{DBFA64C7-DABE-404C-B446-07AD325BDA69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50CFC89F-D956-4F6B-8535-FEA4C6121DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50CFC89F-D956-4F6B-8535-FEA4C6121DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50CFC89F-D956-4F6B-8535-FEA4C6121DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50CFC89F-D956-4F6B-8535-FEA4C6121DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBFA64C7-DABE-404C-B446-07AD325BDA69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBFA64C7-DABE-404C-B446-07AD325BDA69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBFA64C7-DABE-404C-B446-07AD325BDA69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBFA64C7-DABE-404C-B446-07AD325BDA69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8E7ADC8-69BD-43FA-8E2E-727065EC141D}
+	EndGlobalSection
+EndGlobal
