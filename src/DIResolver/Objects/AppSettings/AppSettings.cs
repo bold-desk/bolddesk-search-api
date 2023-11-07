@@ -6,8 +6,6 @@
 //-----------------------------------------------------------------------
 
 namespace BoldDesk.Search.DIResolver.Objects.AppSettings;
-
-using BoldDesk.Search.DIResolver.Objects.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +18,27 @@ using System.Threading.Tasks;
 public class AppSettings
 {
     /// <summary>
+    /// Gets or Sets API Route Prefix.
+    /// </summary>
+    public string ApiRoutePrefix { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets enable https value.
+    /// </summary>
+    public string EnableHTTPS { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets enable swagger value.
+    /// </summary>
+    public string EnableSwagger { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets Encryption settings.
     /// </summary>
     public EncryptionSettings EncryptionSettings { get; set; } = new EncryptionSettings();
+
+    /// <summary>
+    /// Gets or sets Identity Server Configuration.
+    /// </summary>
+    public IdentityServerConfiguration IdentityServerConfiguration { get; set; } = new IdentityServerConfiguration();
 }

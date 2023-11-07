@@ -1,20 +1,20 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="EncryptionSettings.cs" company="Syncfusion Private Limited">
+// <copyright file="AgentPermissionSettingsFromQuery.cs" company="Syncfusion Private Limited">
 // Copyright (c) Syncfusion Private Limited. All rights reserved.
 // </copyright>
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Objects.Settings
+namespace BoldDesk.Permission.Objects
 {
     /// <summary>
-    /// Encryption class.
+    /// AgentPermissionSettingsFromQuery - Class Declaration.
     /// </summary>
-    public class EncryptionSettings
+    public class AgentPermissionSettingsFromQuery
     {
         /// <summary>
-        /// Gets or sets.
+        /// Gets or sets the list of agent permission as string
         /// </summary>
-        public string Key { get; set; } = string.Empty;
+        public string Permissions { get; set; } = string.Empty;
     }
 }

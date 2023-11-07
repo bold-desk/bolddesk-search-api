@@ -5,7 +5,7 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Objects;
+namespace BoldDesk.Search.DIResolver.Objects.AppSettings;
 
 using System;
 

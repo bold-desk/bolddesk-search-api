@@ -7,17 +7,20 @@
 
 namespace BoldDesk.Search.DIResolver.Extensions;
 
+using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
 using AspNetCoreRateLimit;
 using AutoMapper;
-using BoldDesk.Search.DIResolver.Objects;
 using BoldDesk.Search.DIResolver.Objects.AppSettings;
 using BoldDesk.Search.DIResolver.Objects.AutoMapperProfile;
-using BoldDesk.Search.DIResolver.Objects.Settings;
 using BoldDesk.Search.DIResolver.Services.Error;
 using BoldDesk.Search.DIResolver.Services.General;
 using BoldDesk.Search.DIResolver.Services.Logger;
 using Humanizer.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,7 +37,7 @@ using System.Configuration;
 /// <summary>
 /// Class for the service collection extensions.
 /// </summary>
-public static class ServiceCollectionExtensions
+public static partial class ServiceCollectionExtensions
 {
     /// <summary>
     /// Add application services to the container.
@@ -56,6 +59,8 @@ public static class ServiceCollectionExtensions
         // Reload the app settings from the object to reflect the changes while updating for the integration testing.
         var appSettingsConfig = new IntegrationTestingHelperExtension().ReloadAppSettingsOptions(services);
         services.Configure<AppSettings>(appSettingsConfig.GetSection(nameof(AppSettings)));
+
+        services.AddApiServiceCollection();
 
         return services;
     }

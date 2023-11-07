@@ -5,7 +5,7 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Objects.Settings;
+namespace BoldDesk.Search.DIResolver.Objects.AppSettings;
 
 /// <summary>
 /// BrandSSL - Class Declaration.

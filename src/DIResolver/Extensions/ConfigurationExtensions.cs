@@ -24,8 +24,8 @@ public static class ConfigurationExtensions
     {
         var builder = new ConfigurationBuilder()
             .SetBasePath(env?.ContentRootPath)
-            .AddJsonFile("apisettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"apisettings.{env?.EnvironmentName}.json", optional: true)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{env?.EnvironmentName}.json", optional: true)
             .AddEnvironmentVariables();
 
         return builder.Build();
