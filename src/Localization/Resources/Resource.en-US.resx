@@ -123,6 +123,9 @@
   <data name="NoRoleForTheAgent" xml:space="preserve">
     <value>There is no role assigned to this agent.</value>
   </data>
+  <data name="OrganisationNotFound" xml:space="preserve">
+    <value>Organization is invalid.</value>
+  </data>
   <data name="UserNotValidAgent" xml:space="preserve">
     <value>User is not a valid agent.</value>
   </data>

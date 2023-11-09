@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//-----------------------------------------------------------------------
+// <copyright file="AddHasPermissionParameterOperationFilter.cs" company="Syncfusion Private Limited">
+// Copyright (c) Syncfusion Private Limited. All rights reserved.
+// </copyright>
+// <author>Syncfusion Bold Desk Team</author>
+//-----------------------------------------------------------------------
 
 namespace BoldDesk.Search.DIResolver.Filters;
 
@@ -10,6 +11,8 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using BoldDesk.Permission.Enums;
+using BoldDesk.Permission.Filters;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 

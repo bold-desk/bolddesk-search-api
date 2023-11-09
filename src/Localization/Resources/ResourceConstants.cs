@@ -26,4 +26,9 @@ public static class ResourceConstants
     /// Keyword for the success message for No Role for the agent.
     /// </summary>
     public const string NoRoleForTheAgent = "NoRoleForTheAgent";
+
+    /// <summary>
+    /// Keyword for the error message for Organisation Id not found.
+    /// </summary>
+    public const string ErrorMessageForOrganisationIdNotFound = "OrganisationNotFound";
 }

@@ -13,25 +13,37 @@ using AspNetCoreRateLimit;
 using AutoMapper;
 using BoldDesk.Search.DIResolver.Objects.AppSettings;
 using BoldDesk.Search.DIResolver.Objects.AutoMapperProfile;
+using BoldDesk.Search.DIResolver.Services;
 using BoldDesk.Search.DIResolver.Services.Error;
 using BoldDesk.Search.DIResolver.Services.General;
 using BoldDesk.Search.DIResolver.Services.Logger;
 using Humanizer.Configuration;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using Syncfusion.HelpDesk.Catalog.Data.Entity;
 using Syncfusion.HelpDesk.Catalog.Objects;
+using Syncfusion.HelpDesk.Catalog.Services.Resolver;
+using Syncfusion.HelpDesk.Catalog.Services.SupportEmail;
+using Syncfusion.HelpDesk.Core.Enums;
 using Syncfusion.HelpDesk.Core.LocalizationServices;
+using Syncfusion.HelpDesk.Core.Objects;
 using Syncfusion.HelpDesk.Core.Objects.Hosting;
 using Syncfusion.HelpDesk.Encryption;
 using Syncfusion.HelpDesk.Logger;
 using Syncfusion.HelpDesk.Multitenant;
+using Syncfusion.HelpDesk.Organization.Data.Entity;
 using System.Configuration;
 
 /// <summary>
@@ -54,6 +66,7 @@ public static partial class ServiceCollectionExtensions
         services.AddLocalizationServices();
         services.AddHttpContextAccessor();
         services.AddLoggerServices();
+        services.AddRequestDetailsServices();
         services.AddEncryptionServices();
 
         // Reload the app settings from the object to reflect the changes while updating for the integration testing.
@@ -61,6 +74,22 @@ public static partial class ServiceCollectionExtensions
         services.Configure<AppSettings>(appSettingsConfig.GetSection(nameof(AppSettings)));
 
         services.AddApiServiceCollection();
+
+        AddCatalogDatabase(services);
+        AddSearchDatabase(services);
+        services.AddOptions();
+        services.AwsCredentialDetails();
+        services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+            .AddIdentityServerAuthentication(
+            IdentityServerAuthenticationDefaults.AuthenticationScheme,
+            options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                },
+            _ => { });
+
+        services.AddTransient<IOptionsMonitor<JwtBearerOptions>, JWTOptionsProvider>();
 
         return services;
     }
@@ -82,6 +111,8 @@ public static partial class ServiceCollectionExtensions
 
         // load general configuration from appsettings.json
         services.Configure<ClientRateLimitOptions>(configuration.GetSection(nameof(ClientRateLimitOptions)));
+
+        services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 
         return services;
     }
@@ -150,6 +181,30 @@ public static partial class ServiceCollectionExtensions
     }
 
     /// <summary>
+    /// Add Request Details services to the container.
+    /// </summary>
+    /// <param name="services">Service Collection.</param>
+    /// <returns>Returns result as IServiceCollection.</returns>
+    public static IServiceCollection AddRequestDetailsServices(this IServiceCollection services)
+    {
+        var serviceProvider = services.BuildServiceProvider();
+        var env = serviceProvider.GetRequiredService<IWebHostEnvironment>();
+        var contextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+        var sourceId = (int)TicketSourceEnum.AgentPortal;
+        DateTime? requestDateTime = null;
+
+        if (env.IsEnvironment(HostingEnvironmentName.IntegrationTesting))
+        {
+            var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+            requestDateTime = configuration.GetValue<DateTime>("RequestDateTime");
+        }
+
+        services.AddScoped<RequestDetails>(_ => new RequestDetails(contextAccessor, sourceId, false, requestDateTime));
+
+        return services;
+    }
+
+    /// <summary>
     /// Add necessary Encryption services to the container.
     /// </summary>
     /// <param name="services">Service Collection.</param>
@@ -164,6 +219,80 @@ public static partial class ServiceCollectionExtensions
             var localizer = serviceProvider.GetRequiredService<IStringLocalizer<Syncfusion.HelpDesk.Encryption.Localization.Resource>>();
             var logs = serviceProviders.GetRequiredService<ILogs>();
             return new RijndaelEncryption(secretKey, localizer, logs);
+        });
+
+        return services;
+    }
+
+    /// <summary>
+    /// Add necessary DB Context services connected with Catalog database to the container.
+    /// </summary>
+    /// <param name="services">Service Collection.</param>
+    public static void AddCatalogDatabase(IServiceCollection services)
+    {
+        var serviceProvider = services.BuildServiceProvider();
+        var appSettingsValue = serviceProvider.GetRequiredService<IOptions<AppSettings>>().Value;
+        var rijndaelEncryption = serviceProvider.GetService<IRijndaelEncryption>();
+
+        ////Register entity context as a service.
+        var connectionString = rijndaelEncryption?.Decrypt(appSettingsValue.ConnectionStrings.CatalogEntity);
+        services.AddDbContext<CatalogDbContext>(options => options.UseNpgsql(
+            connectionString,
+            npgsqlOptionsAction => npgsqlOptionsAction.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorCodesToAdd: null)));
+    }
+
+    /// <summary>
+    /// Add necessary DB Context services connected with Agent database to the container.
+    /// </summary>
+    /// <param name="services">Service Collection.</param>
+    public static void AddSearchDatabase(IServiceCollection services)
+    {
+        services.AddDbContext<SearchDbContext>();
+    }
+
+    /// <summary>
+    /// AWS credentials.
+    /// </summary>
+    /// <param name="services">Service collection.</param>
+    /// <returns>Returns result as IServiceCollection.</returns>
+    public static IServiceCollection AwsCredentialDetails(this IServiceCollection services)
+    {
+        services.AddScoped<IAmazonSESCredentialResolver, AmazonSESCredentialResolver>();
+        services.AddScoped<AmazonSESService>();
+        services.AddScoped<AmazonSESV2Service>();
+
+        services.AddScoped<Func<int, IServiceProvider, IAmazonSESService>>(_ => (int orgId, IServiceProvider serviceProvider) =>
+        {
+            var amazonSESV2Service = serviceProvider.GetRequiredService<AmazonSESV2Service>();
+            var amazonSESService = serviceProvider.GetRequiredService<AmazonSESService>();
+
+            if (amazonSESService.AmazonSESCrendential == null || amazonSESV2Service.AmazonSESCrendential == null
+                || amazonSESService.AmazonSESCrendential.OrgId != orgId || amazonSESV2Service.AmazonSESCrendential.OrgId != orgId)
+            {
+                var credentialResolver = serviceProvider.GetRequiredService<IAmazonSESCredentialResolver>();
+                var awsSetting = credentialResolver.GetAwsSesCredentialAsync(orgId).GetAwaiter().GetResult();
+                amazonSESService.AmazonSESCrendential = awsSetting;
+                amazonSESV2Service.AmazonSESCrendential = awsSetting;
+            }
+
+            return amazonSESService;
+        });
+
+        services.AddScoped<Func<int, IServiceProvider, IAmazonSESV2Service>>(_ => (int orgId, IServiceProvider serviceProvider) =>
+        {
+            var amazonSESV2Service = serviceProvider.GetRequiredService<AmazonSESV2Service>();
+            var amazonSESService = serviceProvider.GetRequiredService<AmazonSESService>();
+
+            if (amazonSESService.AmazonSESCrendential == null || amazonSESV2Service.AmazonSESCrendential == null
+                || amazonSESService.AmazonSESCrendential.OrgId != orgId || amazonSESV2Service.AmazonSESCrendential.OrgId != orgId)
+            {
+                var credentialResolver = serviceProvider.GetRequiredService<IAmazonSESCredentialResolver>();
+                var awsSetting = credentialResolver.GetAwsSesCredentialAsync(orgId).GetAwaiter().GetResult();
+                amazonSESService.AmazonSESCrendential = awsSetting;
+                amazonSESV2Service.AmazonSESCrendential = awsSetting;
+            }
+
+            return amazonSESV2Service;
         });
 
         return services;

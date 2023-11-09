@@ -27,11 +27,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="FluentValidation" Version="11.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureKeyVault" Version="3.1.24" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.13" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.29" />
     <PackageReference Include="Roslynator.Analyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
@@ -61,7 +65,6 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.24" />
-    <PackageReference Include="Azure.Extensions.AspNetCore.DataProtection.Keys" Version="1.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
@@ -75,9 +78,16 @@
     <PackageReference Include="Syncfusion.HelpDesk.Logger" Version="0.0.14" />
     <PackageReference Include="Syncfusion.HelpDesk.Multitenant" Version="0.0.72" />
     <PackageReference Include="Syncfusion.HelpDesk.Organization" Version="0.0.60" />
-    <PackageReference Include="Syncfusion.HelpDesk.Organization.Data" Version="0.0.507" />
+    <PackageReference Include="Syncfusion.HelpDesk.Organization.Data" Version="0.0.508" />
+    <PackageReference Include="Syncfusion.HelpDesk.PlaceholderResolver" Version="0.0.138" />
+    <PackageReference Include="Syncfusion.Licensing" Version="23.1.44" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Permission\BoldDesk.Permission.csproj" />
   </ItemGroup>
   
 </Project>

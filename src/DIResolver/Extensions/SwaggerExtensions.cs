@@ -92,14 +92,6 @@ public static class SwaggerExtensions
             c.SchemaFilter<FluentValidationRules>();
             c.AddFluentValidationRules();
         });
-
-        services.AddSwaggerExamplesFromAssemblyOf<AgentDetailsObjectsExample>();
-        services.AddSwaggerExamplesFromAssemblyOf<BrandCollectionObjectsExample>();
-        services.AddSwaggerExamplesFromAssemblyOf<TicketDetailsObjectsExample>();
-        services.AddSwaggerExamplesFromAssemblyOf<ContactGroupDetailsObjectsExample>();
-        services.AddSwaggerExamplesFromAssemblyOf<ContactGroupListObjectsExample>();
-        services.AddSwaggerExamplesFromAssemblyOf<AddContactGroupObjectExample>();
-        services.AddSwaggerExamplesFromAssemblyOf<AddImportFileExample>();
     }
 
     /// <summary>
