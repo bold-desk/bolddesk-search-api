@@ -31,4 +31,14 @@ public static class ResourceConstants
     /// Keyword for the error message for Organisation Id not found.
     /// </summary>
     public const string ErrorMessageForOrganisationIdNotFound = "OrganisationNotFound";
+
+    /// <summary>
+    /// Keyword for the trial expired or suspended exception message.
+    /// </summary>
+    public const string TrialExpiredOrSuspended = "TrialExpiredOrSuspended";
+
+    /// <summary>
+    /// Keyword for the active suspended exception message.
+    /// </summary>
+    public const string ActiveSuspended = "ActiveSuspended";
 }

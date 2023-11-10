@@ -14,6 +14,7 @@ namespace BoldDesk.Search.DIResolver.Middleware
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using BoldDesk.Search.DIResolver.Extensions.Core;
     using BoldDesk.Search.Localization.Resources;
     using BoldDesk.Search.Localization.Services;
     using Microsoft.AspNetCore.Http;

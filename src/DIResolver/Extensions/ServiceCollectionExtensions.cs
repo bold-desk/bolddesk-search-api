@@ -111,6 +111,7 @@ public static partial class ServiceCollectionExtensions
 
         // load general configuration from appsettings.json
         services.Configure<ClientRateLimitOptions>(configuration.GetSection(nameof(ClientRateLimitOptions)));
+        services.Configure<CustomPostRateLimitEndPoints>(configuration.GetSection(nameof(CustomPostRateLimitEndPoints)));
 
         services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 

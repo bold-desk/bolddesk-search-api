@@ -5,7 +5,7 @@
 // <author>Syncfusion Bold Desk Team</author>
 // -----------------------------------------------------------------------
 
-namespace BoldDesk.Search.Core.Extensions;
+namespace BoldDesk.Search.DIResolver.Extensions.Core;
 
 using System;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Routing;
 /// <summary>
 /// Http Request Extensions - Class Declaration
 /// </summary>
-public static partial class CommonExtensions
+public static class HttpRequestExtensions
 {
     /// <summary>
     /// Gets the route value as route template which contains the placeholder by replacing the action parameters.

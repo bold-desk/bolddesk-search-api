@@ -22,6 +22,7 @@ using Syncfusion.HelpDesk.Core.Objects.Hosting;
 using Syncfusion.HelpDesk.Encryption;
 using Syncfusion.HelpDesk.Multitenant.Builder;
 using Syncfusion.HelpDesk.Multitenant;
+using Microsoft.AspNetCore.Hosting;
 
 /// <summary>
 /// class for application builder Service
@@ -106,7 +107,22 @@ public static class ApplicationBuilderExtensions
         app.UseAuthorization();
         app.UseUserTypeValidator();
 
+        app.OrganizationStatusValidator();
+        app.UseOrganizationSettings();
 
+        if (!app.Environment.IsDevelopment() && !app.Environment.IsEnvironment(HostingEnvironmentName.IntegrationTesting))
+        {
+            app.UseErrorContextSettings();
+        }
+
+        app.UseApplicationInsightsTelemetry(app.Environment); // Application insights
+
+        // Get the Rate Limiting Rules from Redis Cache.
+        app.UseAgentAPICustomRateLimitingRedisCache();
+        app.UseAgentAPIClientRateLimiting();
+        app.UseTenantLocalization();
+
+        app.UseEndpoints(endpoints => endpoints.MapControllers());
 
         return app;
     }
@@ -360,5 +376,71 @@ public static class ApplicationBuilderExtensions
     public static IApplicationBuilder OrganizationStatusValidator(this IApplicationBuilder app)
     {
         return app.UseMiddleware<OrganizationStatusMiddleware>();
+    }
+
+    /// <summary>
+    /// This is an extension method of Configure(). Used to configure refresh the organization settings globally in the HTTP request pipeline.
+    /// </summary>
+    /// <param name="app">Application Builder.</param>
+    /// <returns>Returns Application Builder.</returns>
+    public static IApplicationBuilder UseOrganizationSettings(this IApplicationBuilder app)
+    {
+        return app.UseMiddleware<OrganizationSettingsMiddleware>();
+    }
+
+    /// <summary>
+    /// This is an extension method of Configure(). Used to configure Error Context settings in the HTTP request pipeline.
+    /// </summary>
+    /// <param name="app">Application Builder.</param>
+    /// <returns>Returns Application Builder.</returns>
+    public static IApplicationBuilder UseErrorContextSettings(this IApplicationBuilder app)
+    {
+        return app.UseMiddleware<ErrorContextSettingsMiddleware>();
+    }
+
+    /// <summary>
+    /// This is an extension method of Configure(). Used to gather additional insights.
+    /// </summary>
+    /// <param name="app">Application Builder.</param>
+    /// <param name="env">Environment value</param>
+    /// <returns>Returns Application Builder.</returns>
+    public static IApplicationBuilder UseApplicationInsightsTelemetry(this IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (!env.IsDevelopment() && !env.IsEnvironment(HostingEnvironmentName.IntegrationTesting))
+        {
+            return app.UseMiddleware<ApplicationInsightsTelemetryMiddleware>();
+        }
+
+        return app;
+    }
+
+    /// <summary>
+    /// This is an extension method of Configure(). Used to apply limit for the API usage.
+    /// </summary>
+    /// <param name="app">Application Builder.</param>
+    /// <returns>Returns Application Builder.</returns>
+    public static IApplicationBuilder UseAgentAPICustomRateLimitingRedisCache(this IApplicationBuilder app)
+    {
+        return app.UseMiddleware<AgentApiCustomRateLimitingMiddleware>();
+    }
+
+    /// <summary>
+    /// This is an extension method of Configure(). Used to apply limit for the API usage.
+    /// </summary>
+    /// <param name="app">Application Builder.</param>
+    /// <returns>Returns Application Builder.</returns>
+    public static IApplicationBuilder UseAgentAPIClientRateLimiting(this IApplicationBuilder app)
+    {
+        return app.UseMiddleware<AgentAPIClientRateLimitMiddleware>();
+    }
+
+    /// <summary>
+    /// This is an extension method of Configure(). Used to create cloud storage for the tenant in the HTTP request pipeline.
+    /// </summary>
+    /// <param name="app">Application Builder.</param>
+    /// <returns>Returns Application Builder.</returns>
+    public static IApplicationBuilder? UseTenantLocalization(this IApplicationBuilder app)
+    {
+        return app.UseMiddleware<TenantRequestLocalizationMiddleware>();
     }
 }
