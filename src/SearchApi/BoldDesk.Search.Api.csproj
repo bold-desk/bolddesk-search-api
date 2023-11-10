@@ -32,7 +32,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.22" />
     <PackageReference Include="Roslynator.Analyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -71,7 +70,6 @@
     <PackageReference Include="Syncfusion.HelpDesk.Logger" Version="0.0.14" />
     <PackageReference Include="Syncfusion.HelpDesk.Multitenant" Version="0.0.72" />
     <PackageReference Include="Syncfusion.HelpDesk.Organization" Version="0.0.60" />
-    <PackageReference Include="Syncfusion.HelpDesk.Organization.Data" Version="0.0.508" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
   </ItemGroup>
