@@ -107,7 +107,7 @@ public static class SwaggerExtensions
         app.UseSwagger(
            c =>
            {
-               c.RouteTemplate = "/agent-api/help/swagger/{documentname}/swagger.json";
+               c.RouteTemplate = "/search-api/help/swagger/{documentName}/swagger.json";
                c.PreSerializeFilters.Add((swaggerDoc, httpRequest) =>
                swaggerDoc.Servers = new List<OpenApiServer>
                {
@@ -118,10 +118,10 @@ public static class SwaggerExtensions
         app.UseSwaggerUI(c =>
         {
             c.DocumentTitle = "Working with Bold Desk API v1.0";
-            c.SwaggerEndpoint(subpath + "/agent-api/help/swagger/v1.0/swagger.json", "API V1.0");
-            c.RoutePrefix = "agent-api/help";
+            c.SwaggerEndpoint(subpath + "/search-api/help/swagger/v1/swagger.json", "API V1.0");
+            c.RoutePrefix = "search-api/help";
             c.OAuthClientId(oAuthClientId);
-            c.OAuthAppName("Agent API");
+            c.OAuthAppName("Search API");
             c.DisplayRequestDuration();
             c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
             c.EnableFilter();
