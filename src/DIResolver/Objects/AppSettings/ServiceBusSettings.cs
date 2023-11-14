@@ -5,20 +5,21 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Objects;
-
-/// <summary>
-/// Service Bus Settings Class.
-/// </summary>
-public class ServiceBusSettings
+namespace BoldDesk.Search.DIResolver.Objects
 {
     /// <summary>
-    /// Gets or sets Connection String.
+    /// Service Bus Settings Class.
     /// </summary>
-    public string ConnectionString { get; set; } = string.Empty;
+    public class ServiceBusSettings
+    {
+        /// <summary>
+        /// Gets or sets Connection String.
+        /// </summary>
+        public string ConnectionString { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or Sets Version.
-    /// </summary>
-    public string Version { get; set; } = string.Empty;
+        /// <summary>
+        /// Gets or Sets Version.
+        /// </summary>
+        public string Version { get; set; } = string.Empty;
+    }
 }

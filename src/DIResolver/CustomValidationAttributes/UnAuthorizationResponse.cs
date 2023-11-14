@@ -5,25 +5,26 @@
 // <author>Syncfusion Bold Desk Team</author>
 // -----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.CustomValidationAttributes;
-
-using System.Collections.Generic;
-using System.Net;
-using Syncfusion.HelpDesk.Core.ValidationErrors;
-
-/// <summary>
-/// UnAuthorizationResponse
-/// </summary>
-public class UnAuthorizationResponse : ValidationError
+namespace BoldDesk.Search.DIResolver.CustomValidationAttributes
 {
+    using System.Collections.Generic;
+    using System.Net;
+    using Syncfusion.HelpDesk.Core.ValidationErrors;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="UnAuthorizationResponse"/> class.
-    /// Unauthorozation
+    /// UnAuthorizationResponse
     /// </summary>
-    public UnAuthorizationResponse()
+    public class UnAuthorizationResponse : ValidationError
     {
-        StatusCode = (int)HttpStatusCode.Unauthorized;
-        Errors = new List<FieldErrors>();
-        Message = string.Empty;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnAuthorizationResponse"/> class.
+        /// Unauthorozation
+        /// </summary>
+        public UnAuthorizationResponse()
+        {
+            StatusCode = (int)HttpStatusCode.Unauthorized;
+            Errors = new List<FieldErrors>();
+            Message = string.Empty;
+        }
     }
 }

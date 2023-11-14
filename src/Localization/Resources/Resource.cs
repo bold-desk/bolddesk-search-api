@@ -5,11 +5,12 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.Localization.Resources;
-
-/// <summary>
-/// Resource class.
-/// </summary>
-public class Resource
+namespace BoldDesk.Search.Localization.Resources
 {
+    /// <summary>
+    /// Resource class.
+    /// </summary>
+    public class Resource
+    {
+    }
 }

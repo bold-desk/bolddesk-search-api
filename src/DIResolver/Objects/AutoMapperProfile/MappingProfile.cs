@@ -5,19 +5,20 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Objects.AutoMapperProfile;
-
-using AutoMapper;
-
-/// <summary>
-/// Mapping Profile Class.
-/// </summary>
-public class MappingProfile : Profile
+namespace BoldDesk.Search.DIResolver.Objects.AutoMapperProfile
 {
+    using AutoMapper;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="MappingProfile"/> class.
+    /// Mapping Profile Class.
     /// </summary>
-    public MappingProfile()
+    public class MappingProfile : Profile
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MappingProfile"/> class.
+        /// </summary>
+        public MappingProfile()
+        {
+        }
     }
 }

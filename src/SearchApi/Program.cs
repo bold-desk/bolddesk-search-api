@@ -5,23 +5,38 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-using BoldDesk.Search.DIResolver.Extensions;
+namespace BoldDesk.Search.Api
+{
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Hosting;
 
-// Create the web api.
-var searchApiBuilder = WebApplication.CreateBuilder(args);
+    /// <summary>
+    /// Program class.
+    /// </summary>
+    public static class Program
+    {
+        /// <summary>
+        /// Main method.
+        /// </summary>
+        /// <param name="args">args value.</param>
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
 
-// Configure the web api.
-searchApiBuilder.WebHost.ConfigureKestrel(kestrel => kestrel.AddServerHeader = false);
-
-// Get configuration based on environment.
-var configuration = searchApiBuilder.Environment.GetApiConfiguration();
-
-// Add services to the api container.
-searchApiBuilder.Services.ConfigureServices(configuration);
-
-// Configure the HTTP request pipeline.
-var searchApi = searchApiBuilder.Build();
-searchApi.BuildApplication();
-
-// Run the web api.
-searchApi.Run();
+        /// <summary>
+        /// create host builder.
+        /// </summary>
+        /// <param name="args">args value.</param>
+        /// <returns>Returns result as host builder.</returns>
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                    .ConfigureWebHostDefaults(webBuilder =>
+                    {
+                        webBuilder.ConfigureKestrel(kestrel => kestrel.AddServerHeader = false);
+                        webBuilder.UseStartup<Startup>();
+                    });
+        }
+    }
+}

@@ -5,24 +5,25 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Extensions;
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-/// <summary>
-/// class for Integration Testing Helper Extension.
-/// </summary>
-public class IntegrationTestingHelperExtension
+namespace BoldDesk.Search.DIResolver.Extensions
 {
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
     /// <summary>
-    /// Reload AppSettings Options when need to update any values in appSettings.json while application running.
+    /// class for Integration Testing Helper Extension.
     /// </summary>
-    /// <param name="services">Service Collection.</param>
-    /// <returns>Returns application configuration properties.</returns>
-    internal virtual IConfiguration ReloadAppSettingsOptions(IServiceCollection services)
+    public class IntegrationTestingHelperExtension
     {
-        var serviceProvider = services.BuildServiceProvider();
-        return serviceProvider.GetRequiredService<IConfiguration>();
+        /// <summary>
+        /// Reload AppSettings Options when need to update any values in appSettings.json while application running.
+        /// </summary>
+        /// <param name="services">Service Collection.</param>
+        /// <returns>Returns application configuration properties.</returns>
+        internal virtual IConfiguration ReloadAppSettingsOptions(IServiceCollection services)
+        {
+            var serviceProvider = services.BuildServiceProvider();
+            return serviceProvider.GetRequiredService<IConfiguration>();
+        }
     }
 }

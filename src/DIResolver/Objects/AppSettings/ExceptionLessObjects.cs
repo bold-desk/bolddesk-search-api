@@ -5,20 +5,21 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Objects.AppSettings;
-
-/// <summary>
-/// Exception Less Objects class.
-/// </summary>
-public class ExceptionLessObjects
+namespace BoldDesk.Search.DIResolver.Objects.AppSettings
 {
     /// <summary>
-    /// Gets or sets Api Key.
+    /// Exception Less Objects class.
     /// </summary>
-    public string ApiKey { get; set; } = string.Empty;
+    public class ExceptionLessObjects
+    {
+        /// <summary>
+        /// Gets or sets Api Key.
+        /// </summary>
+        public string ApiKey { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets Server Name.
-    /// </summary>
-    public string ServerName { get; set; } = string.Empty;
+        /// <summary>
+        /// Gets or sets Server Name.
+        /// </summary>
+        public string ServerName { get; set; } = string.Empty;
+    }
 }

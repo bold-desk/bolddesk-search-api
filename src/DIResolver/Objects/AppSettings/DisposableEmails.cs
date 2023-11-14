@@ -5,17 +5,18 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Objects.AppSettings;
-
-using System.Collections.Generic;
-
-/// <summary>
-/// Class Declaration - Disposable Emails
-/// </summary>
-public class DisposableEmails
+namespace BoldDesk.Search.DIResolver.Objects.AppSettings
 {
+    using System.Collections.Generic;
+
     /// <summary>
-    /// Gets or sets Email.
+    /// Class Declaration - Disposable Emails
     /// </summary>
-    public List<string> BlackListEmails { get; set; } = new List<string>();
+    public class DisposableEmails
+    {
+        /// <summary>
+        /// Gets or sets Email.
+        /// </summary>
+        public List<string> BlackListEmails { get; set; } = new List<string>();
+    }
 }

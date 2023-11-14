@@ -5,25 +5,26 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Objects.AppSettings;
-
-/// <summary>
-/// BrandSSL - Class Declaration.
-/// </summary>
-public class BrandSSL
+namespace BoldDesk.Search.DIResolver.Objects.AppSettings
 {
     /// <summary>
-    /// Gets or sets Api Key.
+    /// BrandSSL - Class Declaration.
     /// </summary>
-    public string ApiKey { get; set; } = string.Empty;
+    public class BrandSSL
+    {
+        /// <summary>
+        /// Gets or sets Api Key.
+        /// </summary>
+        public string ApiKey { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets Api URL.
-    /// </summary>
-    public string ApiURL { get; set; } = string.Empty;
+        /// <summary>
+        /// Gets or sets Api URL.
+        /// </summary>
+        public string ApiURL { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets a value indicating whether gets or sets whether is enabled or not.
-    /// </summary>
-    public bool IsEnabled { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets whether is enabled or not.
+        /// </summary>
+        public bool IsEnabled { get; set; }
+    }
 }

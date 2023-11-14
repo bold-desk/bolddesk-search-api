@@ -5,29 +5,30 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Extensions;
-
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-
-/// <summary>
-/// Class for the service collection extensions.
-/// </summary>
-public static class ConfigurationExtensions
+namespace BoldDesk.Search.DIResolver.Extensions
 {
-    /// <summary>
-    /// Get Configuration details from local json files like appSetting.json and apisettings.json.
-    /// </summary>
-    /// <param name="env">Hosting Environment.</param>
-    /// <returns>Returns result as IConfiguration.</returns>
-    public static IConfiguration GetApiConfiguration(this IWebHostEnvironment env)
-    {
-        var builder = new ConfigurationBuilder()
-            .SetBasePath(env?.ContentRootPath)
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{env?.EnvironmentName}.json", optional: true)
-            .AddEnvironmentVariables();
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
 
-        return builder.Build();
+    /// <summary>
+    /// Class for the service collection extensions.
+    /// </summary>
+    public static class ConfigurationExtensions
+    {
+        /// <summary>
+        /// Get Configuration details from local json files like appSetting.json and apisettings.json.
+        /// </summary>
+        /// <param name="env">Hosting Environment.</param>
+        /// <returns>Returns result as IConfiguration.</returns>
+        public static IConfiguration GetApiConfiguration(this IWebHostEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env?.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env?.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
+            return builder.Build();
+        }
     }
 }

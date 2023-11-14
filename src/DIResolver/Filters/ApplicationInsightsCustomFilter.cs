@@ -5,41 +5,42 @@
 // <author>Syncfusion Bold Desk Team</author>
 // -----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Filters;
-
-using System;
-using Microsoft.ApplicationInsights.Channel;
-using Microsoft.ApplicationInsights.DataContracts;
-using Microsoft.ApplicationInsights.Extensibility;
-
-/// <summary>
-/// Application Insights Custom Filter class.
-/// </summary>
-public class ApplicationInsightsCustomFilter : ITelemetryProcessor
+namespace BoldDesk.Search.DIResolver.Filters
 {
-    private readonly ITelemetryProcessor next;
+    using System;
+    using Microsoft.ApplicationInsights.Channel;
+    using Microsoft.ApplicationInsights.DataContracts;
+    using Microsoft.ApplicationInsights.Extensibility;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ApplicationInsightsCustomFilter"/> class.
+    /// Application Insights Custom Filter class.
     /// </summary>
-    /// <param name="next">Request Delegate Value</param>
-    public ApplicationInsightsCustomFilter(ITelemetryProcessor next)
+    public class ApplicationInsightsCustomFilter : ITelemetryProcessor
     {
-        this.next = next;
-    }
+        private readonly ITelemetryProcessor next;
 
-    /// <summary>
-    /// Process method
-    /// </summary>
-    /// <param name="item">ITelemetry item</param>
-    public void Process(ITelemetry item)
-    {
-        RequestTelemetry? telemetry = item as RequestTelemetry;
-        if (telemetry?.Url.AbsoluteUri.Contains("/health", StringComparison.InvariantCultureIgnoreCase) == true || telemetry?.ResponseCode == "400" || telemetry?.ResponseCode == "404")
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationInsightsCustomFilter"/> class.
+        /// </summary>
+        /// <param name="next">Request Delegate Value</param>
+        public ApplicationInsightsCustomFilter(ITelemetryProcessor next)
         {
-            return;
+            this.next = next;
         }
 
-        next.Process(item);
+        /// <summary>
+        /// Process method
+        /// </summary>
+        /// <param name="item">ITelemetry item</param>
+        public void Process(ITelemetry item)
+        {
+            RequestTelemetry? telemetry = item as RequestTelemetry;
+            if (telemetry?.Url.AbsoluteUri.Contains("/health", StringComparison.InvariantCultureIgnoreCase) == true || telemetry?.ResponseCode == "400" || telemetry?.ResponseCode == "404")
+            {
+                return;
+            }
+
+            next.Process(item);
+        }
     }
 }

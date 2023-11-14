@@ -5,19 +5,19 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.Api.Controllers;
-
-using Asp.Versioning;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-/// <summary>
-/// Search Controller.
-/// </summary>
-[ApiVersion("1.0")]
-[Route("search-api/v{v:apiVersion}")]
-[ApiController]
-public class SearchController : ControllerBase
+namespace BoldDesk.Search.Api.Controllers
 {
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
 
+    /// <summary>
+    /// Search Controller.
+    /// </summary>
+    [ApiVersion("1.0")]
+    [Route("search-api/v{v:apiVersion}")]
+    [ApiController]
+    public class SearchController : ControllerBase
+    {
+
+    }
 }

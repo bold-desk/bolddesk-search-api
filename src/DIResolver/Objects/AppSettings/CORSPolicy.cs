@@ -5,17 +5,18 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Objects.AppSettings;
-
-using System;
-
-/// <summary>
-/// CORSPolicy class.
-/// </summary>
-public class CORSPolicy
+namespace BoldDesk.Search.DIResolver.Objects.AppSettings
 {
+    using System;
+
     /// <summary>
-    /// Gets or sets Whitelisted domains for CORS.
+    /// CORSPolicy class.
     /// </summary>
-    public string[] WhitelistedDomains { get; set; } = Array.Empty<string>();
+    public class CORSPolicy
+    {
+        /// <summary>
+        /// Gets or sets Whitelisted domains for CORS.
+        /// </summary>
+        public string[] WhitelistedDomains { get; set; } = Array.Empty<string>();
+    }
 }

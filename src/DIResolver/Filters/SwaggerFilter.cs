@@ -5,40 +5,41 @@
 // <author>Syncfusion Bold Desk Team</author>
 // -----------------------------------------------------------------------
 
-namespace BoldDesk.Search.DIResolver.Filters;
-
-using System.Collections.Generic;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-
-/// <summary>
-/// Swagger filter class.
-/// </summary>
-public class SwaggerFilter : IOperationFilter
+namespace BoldDesk.Search.DIResolver.Filters
 {
+    using System.Collections.Generic;
+    using Microsoft.OpenApi.Models;
+    using Swashbuckle.AspNetCore.SwaggerGen;
+
     /// <summary>
-    /// Apply method.
+    /// Swagger filter class.
     /// </summary>
-    /// <param name="operation">Operation.</param>
-    /// <param name="context">Context.</param>
-    public void Apply(OpenApiOperation operation, OperationFilterContext context)
+    public class SwaggerFilter : IOperationFilter
     {
-        if (operation == null)
+        /// <summary>
+        /// Apply method.
+        /// </summary>
+        /// <param name="operation">Operation.</param>
+        /// <param name="context">Context.</param>
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            return;
-        }
+            if (operation == null)
+            {
+                return;
+            }
 
-        var oAuthScheme = new OpenApiSecurityScheme
-        {
-            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
-        };
+            var oAuthScheme = new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
+            };
 
-        operation.Security = new List<OpenApiSecurityRequirement>
+            operation.Security = new List<OpenApiSecurityRequirement>
             {
                 new OpenApiSecurityRequirement
                 {
                     [oAuthScheme] = new string[] { "agent.api" }
                 }
             };
+        }
     }
 }
