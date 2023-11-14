@@ -122,7 +122,7 @@ namespace BoldDesk.Search.DIResolver.Extensions
             app.UseSwaggerUI(c =>
             {
                 c.DocumentTitle = "Working with Bold Desk API v1.0";
-                c.SwaggerEndpoint(subpath + "/agent-api/help/swagger/v1.0/swagger.json", "API V1.0");
+                c.SwaggerEndpoint(subpath + "/agent-api/help/swagger/v1/swagger.json", "API V1.0");
                 c.RoutePrefix = "agent-api/help";
                 c.OAuthClientId(oAuthClientId);
                 c.OAuthAppName("Agent API");

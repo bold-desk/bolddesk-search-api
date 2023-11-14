@@ -7,17 +7,39 @@
 
 namespace BoldDesk.Search.Api.Controllers
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using BoldDesk.Permission.Enums;
+    using BoldDesk.Permission.Filters;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Swashbuckle.AspNetCore.Annotations;
+    using Swashbuckle.AspNetCore.Filters;
+    using Syncfusion.HelpDesk.Core.Localization;
+    using Syncfusion.HelpDesk.Core.ValidationErrors;
 
     /// <summary>
     /// Search Controller.
     /// </summary>
     [ApiVersion("1.0")]
-    [Route("search-api/v{v:apiVersion}")]
+    [Route("agent-api/v{v:apiVersion}/search")]
     [ApiController]
     public class SearchController : ControllerBase
     {
+        /// <summary>
+        /// Search Text Method.
+        /// </summary>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
+        [HttpGet]
+        [Route("{searchtext}")]
+        public async Task<ActionResult> SearchAsync(string searchtext)
+        {
+            if (string.IsNullOrWhiteSpace(searchtext))
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
 
+            return new JsonResult(searchtext);
+        }
     }
 }
