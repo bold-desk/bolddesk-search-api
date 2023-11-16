@@ -8,7 +8,7 @@
 namespace BoldDesk.Search.DIResolver.Filters
 {
     using System.Threading.Tasks;
-    using BoldDesk.Search.Core.Objects;
+    using BoldDesk.Search.Core.Objects.Common;
     using BoldDesk.Search.DIResolver.Filters;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;

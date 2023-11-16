@@ -7,7 +7,7 @@
 
 namespace Syncfusion.HelpDesk.Organization.Data.Entity;
 
-using BoldDesk.Search.Core.Objects;
+using BoldDesk.Search.Core.Objects.Common;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.HelpDesk.Catalog;
 using Syncfusion.HelpDesk.Catalog.Objects;

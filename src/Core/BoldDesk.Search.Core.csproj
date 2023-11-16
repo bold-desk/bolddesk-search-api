@@ -28,7 +28,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentValidation" Version="11.8.0" />
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -47,6 +47,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="5.1.0" />
     <PackageReference Include="Syncfusion.HelpDesk.Catalog" Version="0.0.315" />
     <PackageReference Include="Syncfusion.HelpDesk.Core" Version="0.0.945" />
     <PackageReference Include="Syncfusion.HelpDesk.Multitenant" Version="0.0.72" />

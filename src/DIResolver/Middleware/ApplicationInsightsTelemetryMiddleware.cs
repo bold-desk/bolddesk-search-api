@@ -12,7 +12,7 @@ namespace BoldDesk.Search.DIResolver.Middleware
     using System.Globalization;
     using System.Net;
     using System.Threading.Tasks;
-    using BoldDesk.Search.Core.Objects;
+    using BoldDesk.Search.Core.Objects.Common;
     using Microsoft.ApplicationInsights;
     using Microsoft.AspNetCore.Http;
     using Syncfusion.HelpDesk.Core.Enums;

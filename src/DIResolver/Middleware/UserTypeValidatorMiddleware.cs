@@ -11,7 +11,7 @@ namespace BoldDesk.Search.DIResolver.Middleware
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
-    using BoldDesk.Search.Core.Objects;
+    using BoldDesk.Search.Core.Objects.Common;
     using BoldDesk.Search.Localization.Services;
     using Microsoft.AspNetCore.Http;
     using Syncfusion.HelpDesk.Core.CustomException;

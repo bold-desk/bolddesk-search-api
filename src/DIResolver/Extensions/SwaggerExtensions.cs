@@ -7,6 +7,7 @@
 
 namespace BoldDesk.Search.DIResolver.Extensions;
 
+using BoldDesk.Search.Core.Objects.Swagger;
 using BoldDesk.Search.DIResolver.Filters;
 using BoldDesk.Search.DIResolver.Objects.AppSettings;
 using MicroElements.Swashbuckle.FluentValidation;
@@ -28,7 +29,6 @@ public static class SwaggerExtensions
     /// Add swagger.
     /// </summary>
     /// <param name="services">Services.</param>
-    [Obsolete]
     public static void AddSwagger(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>
@@ -54,9 +54,9 @@ public static class SwaggerExtensions
                         AuthorizationUrl = isValidUrl ? new Uri(idServerConfig?.AuthorizationUrl ?? string.Empty) : new Uri(idServerConfig?.AuthorizationUrl ?? string.Empty, UriKind.Relative),
                         TokenUrl = isValidUrl ? new Uri(idServerConfig?.TokenUrl ?? string.Empty) : new Uri(idServerConfig?.TokenUrl ?? string.Empty, UriKind.Relative),
                         Scopes = new Dictionary<string, string>
-                        {
-                            { "agent.api", "Api full access" }
-                        }
+                            {
+                                { "agent.api", "Api full access" }
+                            }
                     }
                 }
             });
@@ -92,6 +92,9 @@ public static class SwaggerExtensions
             c.SchemaFilter<FluentValidationRules>();
             c.AddFluentValidationRules();
         });
+
+        services.AddSwaggerExamplesFromAssemblyOf<SearchResultObjectExample>();
+        //services.AddFluentValidationRulesToSwagger();
     }
 
     /// <summary>
@@ -118,10 +121,10 @@ public static class SwaggerExtensions
         app.UseSwaggerUI(c =>
         {
             c.DocumentTitle = "Working with Bold Desk API v1.0";
-            c.SwaggerEndpoint(subpath + "/search-api/help/swagger/v1/swagger.json", "API V1.0");
+            c.SwaggerEndpoint(subpath + "/search-api/help/swagger/v1.0/swagger.json", "API V1.0");
             c.RoutePrefix = "search-api/help";
             c.OAuthClientId(oAuthClientId);
-            c.OAuthAppName("Search API");
+            c.OAuthAppName("Agent API");
             c.DisplayRequestDuration();
             c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
             c.EnableFilter();

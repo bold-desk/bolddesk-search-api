@@ -45,7 +45,6 @@ using Syncfusion.HelpDesk.PlaceholderResolver.Services.Razor;
 using Syncfusion.HelpDesk.QueryBuilder.QueryBuilder;
 using Syncfusion.HelpDesk.Core.JsonConverter;
 using Syncfusion.HelpDesk.Core.XSSFilters;
-using BoldDesk.Search.Core.Objects;
 using Syncfusion.HelpDesk.Catalog.Services.Resolver;
 using Syncfusion.HelpDesk.Core.RedirectUrl;
 using Syncfusion.HelpDesk.Catalog.Services.SecretCredentials;
@@ -76,6 +75,7 @@ using Syncfusion.HelpDesk.Core.Webhook.Resolver;
 using Syncfusion.HelpDesk.QueryBuilder.SqlToRuleConverter;
 using Syncfusion.HelpDesk.QueryBuilder;
 using Syncfusion.HelpDesk.QueryBuilder.Objects;
+using BoldDesk.Search.Core.Objects.Common;
 
 /// <summary>
 /// Class for the service collection extensions.
@@ -100,6 +100,7 @@ public static partial class ServiceCollectionExtensions
         });
 
         services.AddApiVersioningServices();
+        services.AddEndpointsApiExplorer();
         services.AddHealthChecks();
 
         var serviceProvider = services.BuildServiceProvider();
@@ -113,7 +114,9 @@ public static partial class ServiceCollectionExtensions
 
         if (enableSwagger)
         {
-            services.AddSwaggerGen();
+#pragma warning disable CS0612 // Type or member is obsolete
+            services.AddSwagger();
+#pragma warning restore CS0612 // Type or member is obsolete
         }
 
         services.ConfigureSearchCors();

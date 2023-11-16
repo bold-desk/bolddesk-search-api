@@ -13,7 +13,7 @@ namespace BoldDesk.Search.Core.Services
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-    using BoldDesk.Search.Core.Objects;
+    using BoldDesk.Search.Core.Objects.Common;
     using BoldDesk.Search.Core.Objects.Settings;
     using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;

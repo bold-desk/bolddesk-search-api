@@ -15,7 +15,7 @@ namespace BoldDesk.Permission.Authorization
     using System.Threading.Tasks;
     using BoldDesk.Permission.Enums;
     using BoldDesk.Permission.Objects;
-    using BoldDesk.Search.Core.Objects;
+    using BoldDesk.Search.Core.Objects.Common;
     using BoldDesk.Search.Localization.Resources;
     using Dapper;
     using Microsoft.AspNetCore.Http;

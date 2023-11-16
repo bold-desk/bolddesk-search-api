@@ -37,7 +37,7 @@ namespace BoldDesk.Search.DIResolver.Middleware
         /// <param name="context">HTTP Context.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         public async Task InvokeAsync(HttpContext context)
-            {
+        {
             if (context == null)
             {
                 return;

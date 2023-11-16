@@ -14,7 +14,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AspNetCoreRateLimit;
-using BoldDesk.Search.Core.Objects;
+using BoldDesk.Search.Core.Objects.Common;
 using BoldDesk.Search.Core.Utilities;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;

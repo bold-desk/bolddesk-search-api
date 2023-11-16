@@ -13,7 +13,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BoldDesk.Search.Core.Objects;
+using BoldDesk.Search.Core.Objects.Common;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -66,7 +66,7 @@ public class TenantRequestLocalizationMiddleware
 
             CultureInfo? cultureInfo = new CultureInfo(defaultLanguage);
             CultureInfo? uiCultureInfo = new CultureInfo(defaultLanguage);
-            ValidatorOptions.Global.LanguageManager.Enabled = true;
+            ValidatorOptions.LanguageManager.Enabled = true;
 
             context.Features.Set<IRequestCultureFeature>(new RequestCultureFeature(new RequestCulture(cultureInfo, uiCultureInfo), new CookieRequestCultureProvider()));
 

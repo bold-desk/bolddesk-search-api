@@ -10,7 +10,7 @@ namespace BoldDesk.Search.DIResolver.Middleware
     using System.Collections.Generic;
     using System.Globalization;
     using System.Threading.Tasks;
-    using BoldDesk.Search.Core.Objects;
+    using BoldDesk.Search.Core.Objects.Common;
     using Microsoft.AspNetCore.Http;
     using Syncfusion.HelpDesk.Logger;
     using Syncfusion.HelpDesk.Multitenant;

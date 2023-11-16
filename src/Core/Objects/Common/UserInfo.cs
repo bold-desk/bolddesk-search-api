@@ -5,7 +5,7 @@
 // <author>Syncfusion Bold Desk Team</author>
 //-----------------------------------------------------------------------
 
-namespace BoldDesk.Search.Core.Objects;
+namespace BoldDesk.Search.Core.Objects.Common;
 
 using System;
 using System.Collections.Generic;
