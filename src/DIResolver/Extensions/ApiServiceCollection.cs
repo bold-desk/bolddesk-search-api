@@ -76,6 +76,7 @@ using Syncfusion.HelpDesk.QueryBuilder.SqlToRuleConverter;
 using Syncfusion.HelpDesk.QueryBuilder;
 using Syncfusion.HelpDesk.QueryBuilder.Objects;
 using BoldDesk.Search.Core.Objects.Common;
+using BoldDesk.Search.Core.Services.UserManagement;
 
 /// <summary>
 /// Class for the service collection extensions.
@@ -196,6 +197,7 @@ public static partial class ServiceCollectionExtensions
         services.AddSingleton<ISharedLocalizer, SharedLocalizer>();
 
         // search api services.
+        services.AddScoped<ILoginDetails, LoginDetails>();
 
         return services;
     }

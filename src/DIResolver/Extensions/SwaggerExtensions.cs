@@ -94,7 +94,6 @@ public static class SwaggerExtensions
         });
 
         services.AddSwaggerExamplesFromAssemblyOf<SearchResultObjectExample>();
-        //services.AddFluentValidationRulesToSwagger();
     }
 
     /// <summary>
