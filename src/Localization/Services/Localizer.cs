@@ -43,10 +43,9 @@ public class Localizer : ILocalizer
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1041:Provide ObsoleteAttribute message", Justification = "OK")]
     public string GetLocalizerValue(string resourceName)
     {
-        return localizer[resourceName];
-        //var resourceValue = localizer[resourceName];
+        var resourceValue = localizer[resourceName];
 
-        //return resourceValue.ResourceNotFound ? localizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
+        return resourceValue.ResourceNotFound ? resourceValue : resourceValue;
     }
 
     /// <summary>
@@ -70,11 +69,9 @@ public class Localizer : ILocalizer
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1041:Provide ObsoleteAttribute message", Justification = "OK")]
     public string GetBaseLocalizerValue(string resourceName)
     {
-        return baseLocalizer[resourceName];
+        var resourceValue = baseLocalizer[resourceName];
 
-        //var resourceValue = baseLocalizer[resourceName];
-
-        //return resourceValue.ResourceNotFound ? baseLocalizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
+        return resourceValue.ResourceNotFound ? resourceValue : resourceValue;
     }
 
     /// <summary>
@@ -86,10 +83,9 @@ public class Localizer : ILocalizer
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1041:Provide ObsoleteAttribute message", Justification = "OK")]
     public string GetErrorMessageForStringLengthExceeds(int lengthValue)
     {
-        return baseLocalizer[SharedResourceConstants.ErrorMessageForStringLengthExceeds];
-        //var resourceValue = baseLocalizer[SharedResourceConstants.ErrorMessageForStringLengthExceeds];
+        var resourceValue = baseLocalizer[SharedResourceConstants.ErrorMessageForStringLengthExceeds];
 
-        //return resourceValue.ResourceNotFound ? baseLocalizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[SharedResourceConstants.ErrorMessageForStringLengthExceeds] + " " + lengthValue.ParseToString() : resourceValue + " " + lengthValue.ParseToString();
+        return resourceValue.ResourceNotFound ? baseLocalizer[SharedResourceConstants.ErrorMessageForStringLengthExceeds] + " " + lengthValue.ParseToString() : resourceValue + " " + lengthValue.ParseToString();
     }
 
     /// <summary>
@@ -103,6 +99,7 @@ public class Localizer : ILocalizer
     public string GetLocalizerValueForSpecifiedLanguage(string langShortCode, string resourceName)
     {
         return localizer[resourceName];
+
         //var resourceValue = localizer.WithCulture(new System.Globalization.CultureInfo(langShortCode))[resourceName];
 
         //return resourceValue.ResourceNotFound ? localizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
@@ -119,6 +116,7 @@ public class Localizer : ILocalizer
     public string GetBaseLocalizerValueForSpecifiedLanguage(string langShortCode, string resourceName)
     {
         return baseLocalizer[resourceName];
+
         //var resourceValue = baseLocalizer.WithCulture(new System.Globalization.CultureInfo(langShortCode))[resourceName];
 
         //return resourceValue.ResourceNotFound ? baseLocalizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
@@ -135,6 +133,7 @@ public class Localizer : ILocalizer
     public string GetPlaceholderLocalizerValueForSpecifiedLanguage(string langShortCode, string resourceName)
     {
         return placeholderLocalizer[resourceName];
+
         //var resourceValue = placeholderLocalizer.WithCulture(new System.Globalization.CultureInfo(langShortCode))[resourceName];
 
         //return resourceValue.ResourceNotFound ? placeholderLocalizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
