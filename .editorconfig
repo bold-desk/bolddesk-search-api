@@ -1,0 +1,13 @@
+﻿root = true
+
+[*.cs]
+
+dotnet_diagnostic.CA1505.severity = silent
+dotnet_diagnostic.CA9998.severity = none
+dotnet_diagnostic.SCS9999.severity = none
+
+# SA1300: Element should begin with upper-case letter
+dotnet_diagnostic.SA1300.severity = none
+
+# CA1707: Identifiers should not contain underscores
+dotnet_diagnostic.CA1707.severity = none
