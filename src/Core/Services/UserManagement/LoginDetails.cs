@@ -183,7 +183,7 @@ namespace BoldDesk.Search.Core.Services.UserManagement
                     var query = (from user in context.Users
                                  join userapikey in context.UserApiKey on user.Id equals userapikey.UserId
                                  where user.NormalizedEmailId == emailId.ToLower(CultureInfo.CurrentCulture).Trim() && user.IsActive && (user.UserStatusId == (int)UserStatusEnum.Active)
-                                 && (userapikey.ExpiryDate == null || userapikey.ExpiryDate >= DateTime.UtcNow.Date) && userapikey.IsActive
+                                 && (userapikey.ExpiryDate == null || userapikey.ExpiryDate.Value >= DateOnly.FromDateTime(DateTime.UtcNow.Date)) && userapikey.IsActive
                                  select userapikey).AsQueryable();
 
                     bool isValidKey = false;

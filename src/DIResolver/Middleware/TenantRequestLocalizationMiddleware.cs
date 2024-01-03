@@ -66,7 +66,7 @@ public class TenantRequestLocalizationMiddleware
 
             CultureInfo? cultureInfo = new CultureInfo(defaultLanguage);
             CultureInfo? uiCultureInfo = new CultureInfo(defaultLanguage);
-            ValidatorOptions.LanguageManager.Enabled = true;
+            ValidatorOptions.Global.LanguageManager.Enabled = true;
 
             context.Features.Set<IRequestCultureFeature>(new RequestCultureFeature(new RequestCulture(cultureInfo, uiCultureInfo), new CookieRequestCultureProvider()));
 
