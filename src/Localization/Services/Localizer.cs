@@ -39,8 +39,6 @@ public class Localizer : ILocalizer
     /// </summary>
     /// <param name="resourceName">Resource Name.</param>
     /// <returns>Returns the resource value.</returns>
-    [System.Obsolete]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1041:Provide ObsoleteAttribute message", Justification = "OK")]
     public string GetLocalizerValue(string resourceName)
     {
         var resourceValue = localizer[resourceName];
@@ -53,8 +51,6 @@ public class Localizer : ILocalizer
     /// </summary>
     /// <param name="resourceName">Resource Name.</param>
     /// <returns>Returns the resource value.</returns>
-    [System.Obsolete]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1041:Provide ObsoleteAttribute message", Justification = "OK")]
     public string GetLocalizerValueForUnitTest(string resourceName)
     {
         return localizer[resourceName];
@@ -65,8 +61,6 @@ public class Localizer : ILocalizer
     /// </summary>
     /// <param name="resourceName">Resource Name.</param>
     /// <returns>Returns the resource value.</returns>
-    [System.Obsolete]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1041:Provide ObsoleteAttribute message", Justification = "OK")]
     public string GetBaseLocalizerValue(string resourceName)
     {
         var resourceValue = baseLocalizer[resourceName];
@@ -79,8 +73,6 @@ public class Localizer : ILocalizer
     /// </summary>
     /// <param name="lengthValue">Maximum characters allowed.</param>
     /// <returns>Returns the error message.</returns>
-    [System.Obsolete]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1041:Provide ObsoleteAttribute message", Justification = "OK")]
     public string GetErrorMessageForStringLengthExceeds(int lengthValue)
     {
         var resourceValue = baseLocalizer[SharedResourceConstants.ErrorMessageForStringLengthExceeds];
@@ -94,8 +86,6 @@ public class Localizer : ILocalizer
     /// <param name="langShortCode">Language Short Code.</param>
     /// <param name="resourceName">Resource Name.</param>
     /// <returns>Returns the error message.</returns>
-    [System.Obsolete]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1041:Provide ObsoleteAttribute message", Justification = "OK")]
     public string GetLocalizerValueForSpecifiedLanguage(string langShortCode, string resourceName)
     {
         return localizer[resourceName];
@@ -111,8 +101,6 @@ public class Localizer : ILocalizer
     /// <param name="langShortCode">Language Short Code.</param>
     /// <param name="resourceName">Resource Name.</param>
     /// <returns>Returns the error message.</returns>
-    [System.Obsolete]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1041:Provide ObsoleteAttribute message", Justification = "OK")]
     public string GetBaseLocalizerValueForSpecifiedLanguage(string langShortCode, string resourceName)
     {
         return baseLocalizer[resourceName];
@@ -128,8 +116,6 @@ public class Localizer : ILocalizer
     /// <param name="langShortCode">Language Short Code.</param>
     /// <param name="resourceName">Resource Name.</param>
     /// <returns>Returns the placeholder localized value.</returns>
-    [System.Obsolete]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1041:Provide ObsoleteAttribute message", Justification = "OK")]
     public string GetPlaceholderLocalizerValueForSpecifiedLanguage(string langShortCode, string resourceName)
     {
         return placeholderLocalizer[resourceName];
