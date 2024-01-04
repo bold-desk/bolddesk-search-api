@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoldDesk.Permission", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoldDesk.Search.Localization", "src\Localization\BoldDesk.Search.Localization.csproj", "{02E0D053-CD6B-44B4-9789-8D7F9FFB82ED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F672B576-E5BC-4C21-A371-0425096AC94C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoldDesk.Search.Api.UnitTests", "test\UnitTests\BoldDesk.Search.Api.UnitTests.csproj", "{367FB5A2-682D-4531-A674-56272746849B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +43,16 @@ Global
 		{02E0D053-CD6B-44B4-9789-8D7F9FFB82ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02E0D053-CD6B-44B4-9789-8D7F9FFB82ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02E0D053-CD6B-44B4-9789-8D7F9FFB82ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{367FB5A2-682D-4531-A674-56272746849B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{367FB5A2-682D-4531-A674-56272746849B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{367FB5A2-682D-4531-A674-56272746849B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{367FB5A2-682D-4531-A674-56272746849B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{367FB5A2-682D-4531-A674-56272746849B} = {F672B576-E5BC-4C21-A371-0425096AC94C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8E7ADC8-69BD-43FA-8E2E-727065EC141D}

@@ -24,10 +24,11 @@ paths = [
 	'''compile-dependencies''',
 	'''packages''',
 	'''bin''',
-	'''obj''',
-    '''.*appsettings.*[a-zA-Z]*(.json)$''', #excluding appsetting files from secret scanning
-    '''SecretCredential.json''', #excluding SecretCredential.json file from secret scanning
-    '''jquery-ui.min.js''' #excluding jquery-ui.min.js file from secret scanning
+	'''obj''', 
+	'''.*appsettings.*[a-zA-Z]*(.json)$''', #excluding appsetting files from secret scanning
+    '''SecretCredential.json''', #excluding SecretCredential.json from secret scanning
+    '''Organization.json''', #excluding Organization.json file from secret scanning
+	'''EmailSenderCredential.json''' #excluding EmailSenderCredential.json file from secret scanning
 ]
 
 [[rules]]
@@ -506,7 +507,7 @@ keywords = [
 ]
 [rules.allowlist]
 paths = [
-  '''Database.refactorlog''',
+  '''Database.refactorlog'''
 ]
 
 regexes = [

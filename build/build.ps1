@@ -131,20 +131,20 @@ $MODULES_PACKAGES_CONFIG = Join-Path $MODULES_DIR "packages.config"
 $UseMono = "";
 if($Mono.IsPresent) {
     Write-Verbose -Message "Using the Mono based scripting engine."
-    $UseMono = "-mono"
+    $UseMono = "--mono"
 }
 
 # Should we use the new Roslyn?
 $UseExperimental = "";
 if($Experimental.IsPresent -and !($Mono.IsPresent)) {
     Write-Verbose -Message "Using experimental version of Roslyn."
-    $UseExperimental = "-experimental"
+    $UseExperimental = "--experimental"
 }
 
 # Is this a dry run?
 $UseDryRun = "";
 if($WhatIf.IsPresent) {
-    $UseDryRun = "-dryrun"
+    $UseDryRun = "--dryrun"
 }
 
 # Make sure tools folder exists
@@ -154,15 +154,15 @@ if ((Test-Path $PSScriptRoot) -and !(Test-Path $TOOLS_DIR)) {
 }
 
 # Make sure that packages.config exist.
-if (!(Test-Path $PACKAGES_CONFIG)) {
-    Write-Verbose -Message "Downloading packages.config..."
-    try {
-        $wc = GetProxyEnabledWebClient
-        $wc.DownloadFile("https://cakebuild.net/download/bootstrapper/packages", $PACKAGES_CONFIG)
-    } catch {
-        Throw "Could not download packages.config."
-    }
-}
+# if (!(Test-Path $PACKAGES_CONFIG)) {
+#     Write-Verbose -Message "Downloading packages.config..."
+#     try {
+#         $wc = GetProxyEnabledWebClient
+#         $wc.DownloadFile("https://cakebuild.net/download/bootstrapper/packages", $PACKAGES_CONFIG)
+#     } catch {
+#         Throw "Could not download packages.config."
+#     }
+# }
 
 # Try find NuGet.exe in path if not exists
 if (!(Test-Path $NUGET_EXE)) {
@@ -259,15 +259,15 @@ if (Test-Path $MODULES_PACKAGES_CONFIG) {
 }
 
 # Make sure that Cake has been installed.
-if (!(Test-Path $CAKE_EXE)) {
-    Throw "Could not find Cake.exe at $CAKE_EXE"
-}
+# if (!(Test-Path $CAKE_EXE)) {
+#     Throw "Could not find Cake.exe at $CAKE_EXE"
+# }
 
-$CAKE_EXE_INVOCATION = if ($IsLinux -or $IsMacOS) {
-    "mono `"$CAKE_EXE`""
-} else {
-    "`"$CAKE_EXE`""
-}
+# $CAKE_EXE_INVOCATION = if ($IsLinux -or $IsMacOS) {
+#     "mono `"$CAKE_EXE`""
+# } else {
+#     "`"$CAKE_EXE`""
+# }
 
 
 # Build Cake arguments
@@ -279,7 +279,19 @@ if ($ShowDescription) { $cakeArguments += "-showdescription" }
 if ($DryRun) { $cakeArguments += "-dryrun" }
 $cakeArguments += $ScriptArgs
 
+# Install Cake 
+Write-Host "Checking Cake version..."
+$Env:Path += ';C:\tools\.dotnet\tools'
+$cakeVersion = & dotnet cake --version
+if ($LASTEXITCODE -ne 0) {
+	Write-Host "Installation Cake started..."
+	& dotnet tool install --tool-path C:\\tools\\.dotnet\\tools Cake.Tool --version 3.1.0
+}
+else {
+	Write-Host "Cake exist with version" $cakeVersion
+}
+
 # Start Cake
 Write-Host "Running build script..."
-Invoke-Expression "& `"$CAKE_EXE`" `"$Script`" -target=`"$Target`" -repository=`"$repository`" -configuration=`"$Configuration`" -buildNumber=`"$buildNumber`" -sourceBranch=`"$sourceBranch`" -verbosity=`"$Verbosity`" -studio_version=`"$StudioVersion`" -nugetserverurl=`"$nugetserverurl`" -revisionNumber=`"$revisionNumber`" -nugetapikey=`"$nugetapikey`" $UseMono $UseDryRun $UseExperimental $ScriptArgs"
+& dotnet cake $Script --target=`"$Target`" --repository `"$repository`" --configuration `"$Configuration`" --apiServerIP `"$apiServerIP`" --apiServerPort `"$apiServerPort`" --apiSiteName `"$apiSiteName`" --apiServerUserName `"$apiServerUserName`" --apiServerPassword `"$apiServerPassword`" --buildNumber `"$buildNumber`" --sourceBranch `"$sourceBranch`" --verbosity `"$Verbosity`" --nugetserverurl `"$nugetserverurl`" --nugetapikey `"$nugetapikey`" --studio_version `"$StudioVersion`" --revisionNumber `"$revisionNumber`" $UseMono $UseDryRun $UseExperimental $ScriptArgs
 exit $LASTEXITCODE

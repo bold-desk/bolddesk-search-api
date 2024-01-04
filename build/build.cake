@@ -1,11 +1,9 @@
 #tool "nuget:?package=xunit.runner.console"
 #tool "nuget:?package=JetBrains.dotCover.CommandLineTools"
-#addin "nuget:?package=Cake.Npm&version=1.0.0"
 #addin nuget:?package=Cake.FileHelpers&version=4.0.1
-#addin "nuget:?package=Cake.WebDeploy"
 #addin "nuget:?package=Newtonsoft.Json&version=13.0.2"
 #addin "nuget:?package=HtmlAgilityPack"
-using System.Text.RegularExpressions
+using System.Text.RegularExpressions;
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -21,7 +19,7 @@ var applicationPath = @"/src/SearchApi";
 var applicationSolutionPath = @"/BoldDesk.Search.Api.sln";
 
 var sourceIncludedCodeCoverage = new List<string>(){"BoldDesk.Permission","BoldDesk.Search.Core","BoldDesk.Search.DIResolver", "BoldDesk.Search.Localization", "BoldDesk.Search.Api"};
-var sourceExcludedFromCodeCoverage = new List<string>(){};
+var sourceExcludedFromCodeCoverage = new List<string>(){"BoldDesk.Search.Api.UnitTests"};
 
 var includeFilterValue = string.Join("+:", sourceIncludedCodeCoverage.Select(i=> "*"+i+"*;"));
 var excludeFilterValue = string.Join("-:", sourceExcludedFromCodeCoverage.Select(i=> "*"+i+"*;"));
@@ -30,49 +28,48 @@ var codeCoverageFilter = string.Format("+:{0}-:{1}", includeFilterValue, exclude
 var unitTestProjectDirPathPattern = @"../test/UnitTests/*.csproj";
 var integrationTestProjectDirPathPattern = @"../test/IntegrationTests/*.csproj";
 
-var projectFramework = "net6.0";
-
 var cireports = Argument("cireports", "../cireports");
 var SCSReportDir = cireports + "/securitycodescan";
 var FXReportDir = cireports + "/fxcopviolation";
 var StyleCopReportsDir = cireports + "/stylecopviolation";
-var xUnitViolationReportDir = cireports + "/xunitviolation";
-var xUnitViolationReportDirForIntegrationHook = cireports + "/xunitviolation";
-var codecoverageReportDir = cireports + "/codecoverage/UnitTesting";
-var codecoverageReportDirForIntegrationTesting = cireports + "/codecoverage/IntegrationTesting";
-var xunitReportDir = cireports + "/xunitreport/UnitTesting";
-var xunitReportDirForIntegrationHook = cireports + "/xunitreport/UnitTesting_IntegrationHook";
-var xunitReportDirForIntegrationTesting = cireports + "/xunitreport/IntegrationTesting";
 var DetectSecretScanReportDir = cireports + "/secret";
 
-var styleCopReport = StyleCopReportsDir + "/StyleCopViolations.txt";
-var fxCopReport = FXReportDir + "/FXCopViolations.txt";
-var securityCodeScanReport = SCSReportDir + "/SecurityCodeScanViolations.txt";
-var xunitReport = xUnitViolationReportDir + "/xUnitViolations.txt";
-var dotCodeCoverageReport = codecoverageReportDir + "/UnitTestCover.dcvr";
-var dotCodeCoverageHTMLReport = codecoverageReportDir + "/UnitTestCover.html";
-var dotCodeCoverageXMLReport = codecoverageReportDir + "/UnitTestCover.xml";
-var dotCodeCoverageReportForIntegrationTesting = codecoverageReportDirForIntegrationTesting + "/IntegrationTestCover.dcvr";
-var dotCodeCoverageHTMLReportForIntegrationTesting = codecoverageReportDirForIntegrationTesting + "/IntegrationTestCover.html";
-var dotCodeCoverageXMLReportForIntegrationTesting = codecoverageReportDirForIntegrationTesting + "/IntegrationTestCover.xml";
-var unitTestingReport = xunitReportDir + "/TestResult.xml";
-var unitTestingReportForIntegrationHook = xunitReportDirForIntegrationHook + "/TestResult.xml";
-var integrationTestingReport = xunitReportDirForIntegrationTesting + "/TestResult.xml";
-var testingHTMLReport = "TestResult.html";
 
+var xUnitViolationReportDir = cireports + "/xunitviolation";
+var xunitReportDir = cireports + "/xunitreport/UnitTesting";
+var codecoverageReportDir = cireports + "/codecoverage/UnitTestCover";
+
+var styleCopReport = StyleCopReportsDir + "/StyleCopViolations.txt";
+var styleCopXMLReport = StyleCopReportsDir + "/StyleCopViolations.xml";
+
+var fxCopReport = FXReportDir + "/FXCopViolations.txt";
+var fxCopXMLReport = FXReportDir + "/FXCopViolations.xml";
+
+var securityCodeScanReport = SCSReportDir + "/SecurityCodeScanViolations.txt";
+var securityCodeScanXMLReport = SCSReportDir + "/SecurityCodeScanViolations.xml";
+
+var xunitReport = xUnitViolationReportDir + "/xUnitViolations.txt";
+var xunitXMLReport = xUnitViolationReportDir + "/xUnitViolations.xml";
+
+var dotCodeCoverageReport = codecoverageReportDir+"/UnitTestCover.dcvr";
+var dotCodeCoverageHTMLReport = codecoverageReportDir+"/UnitTestCover.html";
+var dotCodeCoverageXMLReport = codecoverageReportDir+"/UnitTestCover.xml";
+var unitTestingReport = xunitReportDir+"/TestResult.xml";
+
+var testingHTMLReport = "TestResult.html";
 var buildStatus = true;
 
 var errorlogFolder = cireports + "/errorlogs/";
-var waringsFolder = cireports + "/warnings/";
+var warningsFolder = cireports + "/warnings/";
 
-var apiServerIP = Argument<string>("apiServerIP","");
-var apiServerPort = Argument<string>("apiServerPort","");
-var apiSiteName = Argument<string>("apiSiteName","");
-var apiServerUserName = Argument<string>("apiServerUserName","");
-var apiServerPassword = Argument<string>("apiServerPassword","");
+var apiServerIP=Argument<string>("apiServerIP","");
+var apiServerPort=Argument<string>("apiServerPort","");
+var apiSiteName=Argument<string>("apiSiteName","");
+var apiServerUserName=Argument<string>("apiServerUserName","");
+var apiServerPassword=Argument<string>("apiServerPassword","");
  
-var currentDirectory = MakeAbsolute(Directory("../"));
-var currentDirectoryInfo = new DirectoryInfo(currentDirectory.FullPath);
+var currentDirectory=MakeAbsolute(Directory("../"));
+var currentDirectoryInfo=new DirectoryInfo(currentDirectory.FullPath);
 
 var projDir =  currentDirectory + applicationPath;
 var binDir = String.Concat(projDir,"bin" ) ;
@@ -85,29 +82,16 @@ var styleCopViolationCount = 0;
 var securityCodeScanWarningCount = 0;
 var xUnitWarningCount = 0;
 
-var securityCodeRegex = "warning SCS";
-var fxCopRegex = "warning CA";
-var styleCopRegex = "warning SA";
-var styleCopAnalyzersRegex = "warning SX";
-var xUnitRegex = "warning xUnit";
-var apiAnalyzerRegex = "warning API";
-var asyncAnalyzerRegex = "warning AsyncFixer";
-var cSharpAnalyzerRegex = "warning RS";
-var mvcAnalyzerRegex = "warning MVC";
-var entityFrameworkRegex = "warning EF";
-var rosylnatorAnalyzerRegex = "warning RCS";
+string securityCodeRegexPattern = @"(.*warning SCS\d+: .+)";
+string fxCopRegexPattern = @"(.*warning (CA|CS|API|AsyncFixer|RS|MVC|EF|RCS|MA)\d+: .+)";
+string styleCopRegexPattern = @"(.*warning (SA|SX)\d+: .+)";
+string xUnitRegexPattern = @"(.*warning xUnit\d+: .+)";
+
+var violationsReportRootXmlFormat = "<Violations>{0}</Violations>";
+var violationsReportInnerXmlFormat = "<Violation Source=\"{0}\"></Violation>" + Environment.NewLine;
 
 var startTime = "";
 var endTime = "";
-
-var framework = Argument("framework", projectFramework);
-
-var buildSettings = new DotNetCoreBuildSettings
-     {
-         Framework = framework,
-         Configuration = configuration,
-         OutputDirectory = outputDir
-     };
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -115,70 +99,60 @@ var buildSettings = new DotNetCoreBuildSettings
 
 Task("Clean")
     .Does(() =>
-	{
-	try {
-		var binDirectories = currentDirectoryInfo.GetDirectories("bin", SearchOption.AllDirectories);
-		var objDirectories = currentDirectoryInfo.GetDirectories("obj", SearchOption.AllDirectories);
-		
-		foreach(var directory in binDirectories){
-			CleanDirectories(directory.FullName);
-		}
-		
-		foreach(var directory in objDirectories){
-			CleanDirectories(directory.FullName);
-		}
-
-		if (DirectoryExists(outputDir))
-		{
-			DeleteDirectory(outputDir, recursive:true);
-		}
-	}
-	catch(Exception ex) {
-		throw new Exception(String.Format("Please fix the clean task failures"));  
-	}
+{
+	var binDirectories = currentDirectoryInfo.GetDirectories("bin", SearchOption.AllDirectories);
+    var objDirectories = currentDirectoryInfo.GetDirectories("obj", SearchOption.AllDirectories);
+    
+    foreach(var directory in binDirectories){
+        CleanDirectories(directory.FullName);
+    }
+    
+    foreach(var directory in objDirectories){
+        CleanDirectories(directory.FullName);
+    }
+    if (DirectoryExists(outputDir))
+        {
+            DeleteDirectory(outputDir, new DeleteDirectorySettings { Recursive = true });
+        }
 });
 
 Task("Restore")
     .Does(() => {
-        DotNetCoreRestore(solutionFile);
+        DotNetRestore(solutionFile);
     });
 	
 Task("DeleteLogFile")
 	.Does(()=>{
-		try {		
-			if(FileExists(errorlogFolder + logFilename)){
-				DeleteFile(errorlogFolder + logFilename);
-			}
-			
-			if(FileExists(waringsFolder + logFilename)){
-				DeleteFile(waringsFolder + logFilename);
-			}	
+		
+		if(FileExists(errorlogFolder + logFilename)){
+			DeleteFile(errorlogFolder + logFilename);
 		}
-		catch(Exception ex) {
-			throw new Exception(String.Format("Please fix the delete log file task failures"));  
-		}		
+		
+		if(FileExists(warningsFolder + logFilename)){
+			DeleteFile(warningsFolder + logFilename);
+		}				
 	});
-	
-	var npmSettings = 
-        new NpmInstallSettings 
-        {
-            WorkingDirectory = projDir 			     
-        }; 
 
 Task("Build")   
     .IsDependentOn("Clean")
     .IsDependentOn("Restore")
     .Does(() => {	
-	try { 	
-  
-	 // NpmInstall(npmSettings); 
+	try {
 
-	  MSBuild(solutionFile , settings => 
-	   settings.SetConfiguration(configuration)
-	   .WithProperty("DeployOnBuild","true")
-       .AddFileLogger(new MSBuildFileLogger{LogFile = waringsFolder + logFilename, MSBuildFileLoggerOutput=MSBuildFileLoggerOutput.WarningsOnly})
-	  );  
-	   } 	
+		CreateDirectory(warningsFolder);
+		CreateDirectory(errorlogFolder); 	
+  
+	 	// NpmInstall(npmSettings); 
+
+	  	var buildSettings = new DotNetBuildSettings
+		{
+			Configuration = configuration,
+			NoRestore = true,
+			MSBuildSettings = new DotNetMSBuildSettings().AddFileLogger(new MSBuildFileLoggerSettings{LogFile = warningsFolder + logFilename, SummaryOutputLevel = MSBuildLoggerOutputLevel.WarningsOnly})
+		};
+			
+			DotNetBuild(solutionFile, buildSettings);   
+	} 	
 	catch(Exception ex) {        
 		throw new Exception(String.Format("Please fix the project compilation failures"));  
 	}
@@ -186,121 +160,104 @@ Task("Build")
 
 Task("Get-Security-Scan-Reports")
  .Does(() =>
- {
-	 try {
-		var securityCodeScanWarning = FileReadText(waringsFolder + logFilename);    
-		securityCodeScanWarningCount = Regex.Matches(securityCodeScanWarning, securityCodeRegex).Count;
+ { 
+    var securityCodeScanWarning = FileReadText(warningsFolder + logFilename);    
+	var securityCodeScanWarningLogs = Regex.Matches(securityCodeScanWarning, securityCodeRegexPattern);
+	securityCodeScanWarningCount = securityCodeScanWarningLogs.Count;
 
-		if (DirectoryExists(SCSReportDir))
-		{
-		DeleteDirectory(SCSReportDir, recursive:true);
-		}
 
-		if(securityCodeScanWarningCount != 0)
-		{        
-		Information("There are {0} Security Code violations found", securityCodeScanWarningCount);
-		}
-		
-		if (!DirectoryExists(SCSReportDir)) {
-			CreateDirectory(SCSReportDir);
-		}
-
-		FileWriteText(securityCodeScanReport, "Security Violations Error(s) : " + securityCodeScanWarningCount);
+	if (DirectoryExists(SCSReportDir))
+    {
+	 DeleteDirectory(SCSReportDir, new DeleteDirectorySettings { Recursive = true });
 	}
-	catch(Exception ex) {
-		throw new Exception(String.Format("Please fix the Get Security Scan Reports task failures"));  
+
+    if(securityCodeScanWarningCount != 0)
+    {        
+       Information("There are {0} Security Code violations found", securityCodeScanWarningCount);
+    }
+	
+	if (!DirectoryExists(SCSReportDir)) {
+		CreateDirectory(SCSReportDir);
 	}
+
+	FileWriteText(securityCodeScanReport, "Security Violations Error(s) : " + securityCodeScanWarningCount);
+	var reportInnerXmlValue = string.Join("", securityCodeScanWarningLogs.Select(i => string.Format(violationsReportInnerXmlFormat, i.Value.Trim())));
+	FileWriteText(securityCodeScanXMLReport, string.Format(violationsReportRootXmlFormat, reportInnerXmlValue));
 });
 
 Task("Get-Fx-cop-Reports")
  .Does(() =>
  { 
-	try {
-		if (DirectoryExists(FXReportDir))
-		{
-		DeleteDirectory(FXReportDir, recursive:true);
-		}	 
+	if (DirectoryExists(FXReportDir))
+    {
+	 DeleteDirectory(FXReportDir, new DeleteDirectorySettings { Recursive = true });
+	}	 
 
-		var fxCopWarning = FileReadText(waringsFolder + logFilename);
-		fxCopViolationCount = Regex.Matches(fxCopWarning, fxCopRegex).Count;
-		fxCopViolationCount += Regex.Matches(fxCopWarning, apiAnalyzerRegex).Count;
-		fxCopViolationCount += Regex.Matches(fxCopWarning, asyncAnalyzerRegex).Count;
-		fxCopViolationCount += Regex.Matches(fxCopWarning, cSharpAnalyzerRegex).Count;
-		fxCopViolationCount += Regex.Matches(fxCopWarning, mvcAnalyzerRegex).Count;
-		fxCopViolationCount += Regex.Matches(fxCopWarning, entityFrameworkRegex).Count; 
-		fxCopViolationCount += Regex.Matches(fxCopWarning, rosylnatorAnalyzerRegex).Count; 
+	var fxCopWarning = FileReadText(warningsFolder + logFilename);
+	var fxCopWarningLogs = Regex.Matches(fxCopWarning, fxCopRegexPattern);
+	fxCopViolationCount = fxCopWarningLogs.Count;
 
-		if(fxCopViolationCount != 0)
-		{        
-		Information("There are {0} FXCop violations found", fxCopViolationCount);
-		}
-		
-		if (!DirectoryExists(FXReportDir)) {
-			CreateDirectory(FXReportDir);
-		}
-		
-		FileWriteText(fxCopReport, "FXCop Error(s) : " + fxCopViolationCount);
+    if(fxCopViolationCount != 0)
+    {        
+       Information("There are {0} FXCop violations found", fxCopViolationCount);
+    }
+	
+	if (!DirectoryExists(FXReportDir)) {
+		CreateDirectory(FXReportDir);
 	}
-	catch(Exception ex) {
-		throw new Exception(String.Format("Please fix the Get FxCop Reports task failures"));  
-	}
+	
+	FileWriteText(fxCopReport, "FXCop Error(s) : " + fxCopViolationCount);
+	var reportInnerXmlValue = string.Join("", fxCopWarningLogs.Select(i => string.Format(violationsReportInnerXmlFormat, i.Value.Trim())));
+	FileWriteText(fxCopXMLReport, string.Format(violationsReportRootXmlFormat, reportInnerXmlValue));
 });
 
 Task("Get-StyleCop-Reports")
  .Does(() =>
  {
-	try {
-		if (DirectoryExists(StyleCopReportsDir))
-		{
-		DeleteDirectory(StyleCopReportsDir, recursive:true);
-		}	
-
-		var styleCopWarning = FileReadText(waringsFolder + logFilename);
-		styleCopViolationCount += Regex.Matches(styleCopWarning, styleCopRegex).Count;
-		styleCopViolationCount += Regex.Matches(styleCopWarning, styleCopAnalyzersRegex).Count;
-
-		if(styleCopViolationCount != 0)
-		{        
-		Information("There are {0} StyleCop violations found", styleCopViolationCount);
-		}
+	var styleCopWarning = FileReadText(warningsFolder + logFilename);
+	var styleCopWarningLogs = Regex.Matches(styleCopWarning, styleCopRegexPattern);
+	styleCopViolationCount = styleCopWarningLogs.Count;
 		
-		if (!DirectoryExists(StyleCopReportsDir)) {
-			CreateDirectory(StyleCopReportsDir);
-		}
+	if (DirectoryExists(StyleCopReportsDir)){
+		DeleteDirectory(StyleCopReportsDir, new DeleteDirectorySettings { Recursive = true });
+	}	
 
-		FileWriteText(styleCopReport, "Style Cop Error(s) : " + styleCopViolationCount);
+    if(styleCopViolationCount != 0)
+    {        
+       Information("There are {0} StyleCop violations found", styleCopViolationCount);
+    }
+	
+	if (!DirectoryExists(StyleCopReportsDir)) {
+		CreateDirectory(StyleCopReportsDir);
 	}
-	catch(Exception ex) {
-		throw new Exception(String.Format("Please fix the Get StyleCop Reports task failures"));  
-	}
+
+	FileWriteText(styleCopReport, "Style Cop Error(s) : " + styleCopViolationCount);
+	var reportInnerXmlValue = string.Join("", styleCopWarningLogs.Select(i => string.Format(violationsReportInnerXmlFormat, i.Value.Trim())));
+	FileWriteText(styleCopXMLReport, string.Format(violationsReportRootXmlFormat, reportInnerXmlValue));
 });
 
 Task("Get-xUnit-Reports")
  .Does(() =>
  { 
-	try {
-		if (DirectoryExists(xUnitViolationReportDir))
-		{
-		DeleteDirectory(xUnitViolationReportDir, recursive:true);
-		}	
-
-		var xUnitWarning = FileReadText(waringsFolder + logFilename);
-		xUnitWarningCount += Regex.Matches(xUnitWarning, xUnitRegex).Count;
-
-		if(xUnitWarningCount != 0)
-		{        
-		Information("There are {0} xUnit violations found", xUnitWarningCount);
+	var xUnitWarning = FileReadText(warningsFolder + logFilename);
+	var xUnitWarningLogs = Regex.Matches(xUnitWarning, xUnitRegexPattern);
+	xUnitWarningCount = xUnitWarningLogs.Count;
+	if (DirectoryExists(xUnitViolationReportDir)){
+		DeleteDirectory(xUnitViolationReportDir, new DeleteDirectorySettings { Recursive = true });
 		}
-		
-		if (!DirectoryExists(xUnitViolationReportDir)) {
-			CreateDirectory(xUnitViolationReportDir);
-		}
-		
-		FileWriteText(xunitReport, "xUnit Violations Error(s) : " + xUnitWarningCount);
+
+    if(xUnitWarningCount != 0)
+    {        
+       Information("There are {0} xUnit violations found", xUnitWarningCount);
+    }
+	
+	if (!DirectoryExists(xUnitViolationReportDir)) {
+		CreateDirectory(xUnitViolationReportDir);
 	}
-	catch(Exception ex) {
-		throw new Exception(String.Format("Please fix the Get xUnit Reports task failures"));
-	}
+	
+	FileWriteText(xunitReport, "xUnit Violations Error(s) : " + xUnitWarningCount);
+	var reportInnerXmlValue = string.Join("", xUnitWarningLogs.Select(i => string.Format(violationsReportInnerXmlFormat, i.Value.Trim())));
+	FileWriteText(xunitXMLReport, string.Format(violationsReportRootXmlFormat, reportInnerXmlValue));
 });
 
 Task("Code-Coverage")
@@ -317,7 +274,7 @@ Task("Code-Coverage")
 				CreateDirectory(xunitReportDir);
 			}
 			else {
-				DeleteDirectory(xunitReportDir, recursive:true);
+				DeleteDirectory(xunitReportDir, new DeleteDirectorySettings { Recursive = true });
 				CreateDirectory(xunitReportDir);
 			}
 		}
@@ -326,7 +283,7 @@ Task("Code-Coverage")
 		{
 			CreateDirectory(codecoverageReportDir); 
 		} else { 
-				DeleteDirectory(codecoverageReportDir, recursive:true);
+				DeleteDirectory(codecoverageReportDir, new DeleteDirectorySettings { Recursive = true });
 				CreateDirectory(codecoverageReportDir);	
 		}
 
@@ -336,17 +293,19 @@ Task("Code-Coverage")
 					.WithAttributeFilter("System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute");
 
         foreach(var project in projects)
-        {			
+        {
             DotCoverCover(
-                x => x.DotNetCoreTest(
+                x => x.DotNetTest(
                      project.FullPath,
-                     new DotNetCoreTestSettings() {
-						  Configuration = configuration,
-						  Logger = $"html;LogFileName={testingHTMLReport}",
-        				  NoBuild = true,
-						  ResultsDirectory = new DirectoryPath(xunitReportDir)
-						  }
-                ),
+						new DotNetTestSettings() 
+						{
+							Configuration = configuration,
+							Loggers = new [] { $"html;LogFileName={testingHTMLReport}" },
+							NoBuild = true,
+							NoRestore = true,
+							ResultsDirectory = new DirectoryPath(xunitReportDir)
+						}),
+
                 dotCodeCoverageReport,
 				settings
             );
@@ -360,119 +319,37 @@ Task("Unit-Testing")
     {
 		startTime = DateTime.Now.ToString("dd MMM, yyyy HH:mm:ss"); // Setting Start time
 
-		try {
-			DotCoverReport(dotCodeCoverageReport, dotCodeCoverageHTMLReport,
-				new DotCoverReportSettings {
-					ReportType = DotCoverReportType.HTML
-			});			
-
-			DotCoverReport(dotCodeCoverageReport, dotCodeCoverageXMLReport,
-				new DotCoverReportSettings {
-					ReportType = DotCoverReportType.XML
-			});
-			
-			var  coveragePercent =(from elements in System.Xml.Linq.XDocument.Load(dotCodeCoverageXMLReport).Descendants("Root") 
-							select (string)elements.Attribute("CoveragePercent")).FirstOrDefault();
-			
-			FileStream fs = new FileStream(codecoverageReportDir+"/UnitTestCover.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-			StreamWriter writer = new StreamWriter(fs);
-			writer.Write(coveragePercent);
-			writer.Close();
-			
-			Information("CoveragePercent : "+coveragePercent);
-		}
-		catch(Exception ex) {
-			throw new Exception(String.Format("Please fix the Unit testing task failures"));  
-		}
-
-		endTime = DateTime.Now.ToString("dd MMM, yyyy HH:mm:ss"); // Setting EndTime
-		string timeLog = $"{startTime} - {endTime}";
-		FileWriteText("time.txt", timeLog);
-    });
-	
-Task("Code-Coverage-By-Integration-Testing")
-    .ContinueOnError()
-    .Does(() =>
-    {
-		if (!DirectoryExists(cireports))
-		{
-			CreateDirectory(cireports);
-			CreateDirectory(xunitReportDirForIntegrationTesting);
-		} else {
-			if(!DirectoryExists(xunitReportDirForIntegrationTesting))
-			{
-				CreateDirectory(xunitReportDirForIntegrationTesting);
-			}
-			else {
-				DeleteDirectory(xunitReportDirForIntegrationTesting, recursive:true);
-				CreateDirectory(xunitReportDirForIntegrationTesting);
-			}
-		}
-
-		if (!DirectoryExists(codecoverageReportDirForIntegrationTesting))
-		{
-			CreateDirectory(codecoverageReportDirForIntegrationTesting); 
-		} else { 
-				DeleteDirectory(codecoverageReportDirForIntegrationTesting, recursive:true);
-				CreateDirectory(codecoverageReportDirForIntegrationTesting);	
-		}
-
-		var projects = GetFiles(integrationTestProjectDirPathPattern);
-		var settings = new DotCoverCoverSettings()
-                    .WithFilter(codeCoverageFilter)
-					.WithAttributeFilter("System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute");
-
-        foreach(var project in projects)
-        {
-            DotCoverCover(
-                x => x.DotNetCoreTest(
-                     project.FullPath,
-                     new DotNetCoreTestSettings() {
-						  Configuration = configuration,
-						  Logger = $"html;LogFileName={testingHTMLReport}",
-        				  NoBuild = true,
-						  ResultsDirectory = new DirectoryPath(xunitReportDirForIntegrationTesting)
-						}
-                ),
-                dotCodeCoverageReportForIntegrationTesting,
-				settings
-            );
-        }
-    });
-	
-Task("Integration-Testing")
-    .IsDependentOn("Code-Coverage-By-Integration-Testing")
-    .ContinueOnError()
-    .Does(() =>
-    {
-		DotCoverReport(dotCodeCoverageReportForIntegrationTesting, dotCodeCoverageHTMLReportForIntegrationTesting,
+		DotCoverReport(dotCodeCoverageReport, dotCodeCoverageHTMLReport,
 			new DotCoverReportSettings {
 				ReportType = DotCoverReportType.HTML
 		});			
 
-		DotCoverReport(dotCodeCoverageReportForIntegrationTesting, dotCodeCoverageXMLReportForIntegrationTesting,
+		DotCoverReport(dotCodeCoverageReport, dotCodeCoverageXMLReport,
 			new DotCoverReportSettings {
 				ReportType = DotCoverReportType.XML
 		});
 		
-		var  coveragePercent =(from elements in System.Xml.Linq.XDocument.Load(dotCodeCoverageXMLReportForIntegrationTesting).Descendants("Root") 
+		var  coveragePercent =(from elements in System.Xml.Linq.XDocument.Load(dotCodeCoverageXMLReport).Descendants("Root") 
 						select (string)elements.Attribute("CoveragePercent")).FirstOrDefault();
 		
-		FileStream fs = new FileStream(codecoverageReportDirForIntegrationTesting+"/IntegrationTestCover.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+		FileStream fs = new FileStream(codecoverageReportDir+"/UnitTestCover.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
 		StreamWriter writer = new StreamWriter(fs);
 		writer.Write(coveragePercent);
 		writer.Close();
 		
 		Information("CoveragePercent : "+coveragePercent);
+
+		endTime = DateTime.Now.ToString("dd MMM, yyyy HH:mm:ss"); // Setting End time
+		string timeLog = $"{startTime} - {endTime}";
+        FileWriteText("time.txt", timeLog);
     });
-	
+
 Task("codeviolation")
     .IsDependentOn("Get-StyleCop-Reports")
 	.IsDependentOn("Get-Fx-cop-Reports")
 	.IsDependentOn("Get-Security-Scan-Reports")
 	.IsDependentOn("Get-xUnit-Reports")
     .IsDependentOn("Unit-Testing")
-	.IsDependentOn("Integration-Testing")
 	.IsDependentOn("GitLeaks")
     .Does(() =>
 {
@@ -483,10 +360,10 @@ Task("Download-GitLeaks")
   .ContinueOnError()
   .Does(() =>
 {
- 
+
     DownloadFile("https://github.com/zricethezav/gitleaks/releases/download/v8.15.2/gitleaks_8.15.2_windows_x64.zip", "./tools/GitLeaks-exe.zip");
-	Unzip("./tools/GitLeaks-exe.zip", "./tools/GitLeaks/");
-     
+	Unzip("./tools/GitLeaks-exe.zip", "./tools/GitLeaks/"); 
+
 });
 
 Task("GitLeaks")
@@ -497,7 +374,7 @@ Task("GitLeaks")
 	{
 		if(DirectoryExists(DetectSecretScanReportDir))
 		{
-			DeleteDirectory(DetectSecretScanReportDir, recursive:true);
+			DeleteDirectory(DetectSecretScanReportDir, new DeleteDirectorySettings { Recursive = true });
 		}
 		if(!DirectoryExists(cireports))
 		{
@@ -510,7 +387,7 @@ Task("GitLeaks")
 
 		//Download Gitleaks if not exists
 		if (!FileExists("./tools/GitLeaks/gitleaks.exe"))
-		{	
+		{
 			DownloadFile("https://github.com/zricethezav/gitleaks/releases/download/v8.15.2/gitleaks_8.15.2_windows_x64.zip", "./tools/GitLeaks-exe.zip");
 			Unzip("./tools/GitLeaks-exe.zip", "./tools/GitLeaks/"); 
 		}
@@ -521,7 +398,7 @@ Task("GitLeaks")
 		var jsonString = FileReadText(DetectSecretScanReportDir+"/GitLeaksReport.json");
 		var jsonObject = Newtonsoft.Json.Linq.JArray.Parse(jsonString);
 		var count = jsonObject.Count;
-		
+
 		Information("Number of objects in the JSON file: {0}", count);
 	}
 	catch(Exception ex)
@@ -594,7 +471,7 @@ Task("Send-result-updates")
 	//Get user info - emailid
 	StartProcess("powershell.exe", new ProcessSettings { Arguments = "git show -s --pretty=%ae > useremailinfo.txt" });
 	var userEmailId = System.IO.File.ReadAllText("useremailinfo.txt").Trim();
-	// For kb-api unit test results
+	
 	var htmlfilepath = xunitReportDir +"/"+ "TestResult.html"; 
 	var htmlContent = System.IO.File.ReadAllText(htmlfilepath); // Reading HTML file from path
 	// Load the HTML content using HTML Agility Pack
@@ -606,7 +483,7 @@ Task("Send-result-updates")
 	var skippedTests = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='skippedTests']").InnerText;
 	var SuccessStatus = "";
 	var resultLocation = xunitReportDir + "/" + testingHTMLReport;
-	var TestRunLink = $"https://jenkins.syncfusion.com/job/BoldDesk/job/bolddesk-kb-api/{buildNumber}/artifact/cireports/xunitreport/UnitTesting/TestResult.html";
+	var TestRunLink = $"https://jenkins.syncfusion.com/job/BoldDesk/job/bolddesk-search-api/{buildNumber}/artifact/cireports/xunitreport/UnitTesting/TestResult.html";
 	if(totaltests == passedTests)
 	{
 		SuccessStatus = "Success";
@@ -632,10 +509,9 @@ Task("Send-result-updates")
 	// Executing the command to send data to Centralized DB
 	StartProcess("Syncfusion.UpdateTestResults.exe", new ProcessSettings
 		 		{
-		 			Arguments = "/Platform:\"BoldDesk\" /Project:\"search-api\" /Control:\"MainApp\" /Tags:\"\" /TestingTool:\"xUnit\" /StartTime:\""+startTime+"\" /EndTime:\""+endTime+"\" /Status:\""+SuccessStatus+"\" /TotalTestCase:"+totaltests+" /SuccessCount:"+passedTests+" /FailureCount:"+failedTests+" /NotRunCount:"+skippedTests+" /TestRunName:\"kb-api-unit-test\" /TestRunLink:\""+TestRunLink+"\" /Branch:\""+sourceBranch+"\" /Version:\"\" /UpdatedBy:\""+userEmailId+"\""
+		 			Arguments = "/Platform:\"BoldDesk\" /Project:\"search-api\" /Control:\"MainApp\" /Tags:\"\" /TestingTool:\"xUnit\" /StartTime:\""+startTime+"\" /EndTime:\""+endTime+"\" /Status:\""+SuccessStatus+"\" /TotalTestCase:"+totaltests+" /SuccessCount:"+passedTests+" /FailureCount:"+failedTests+" /NotRunCount:"+skippedTests+" /TestRunName:\"unit-test\" /TestRunLink:\""+TestRunLink+"\" /Branch:\""+sourceBranch+"\" /Version:\"\" /UpdatedBy:\""+userEmailId+"\""
 		 		}
 		 	 );	
-			 
 	// Moving log file to a location
 	Information("Moving log file");
 	var sourceDirectory = "./"; // Current directory
