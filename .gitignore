@@ -27,3 +27,4 @@ temporaryfiles
 !Auto-Generate-Seed-Data.bat
 package-lock.json
 .vscode
+build/time.txt
