@@ -1,0 +1,13 @@
+﻿{
+  "settings": {
+    "documentationRules": {
+      "xmlHeader": false,
+      "companyName": "Syncfusion Private Limited",
+      "copyrightText": "{headerFooterDecoration}\n<copyright file=\"{fileName}\" company=\"{companyName}\">\nCopyright (c) {companyName}. All rights reserved.\n</copyright>\n<author>{authorName}</author>\n{headerFooterDecoration}",
+      "variables": {
+        "headerFooterDecoration": "-----------------------------------------------------------------------",
+        "authorName": "Syncfusion Bold Desk Team"
+      }
+    }
+  }
+}
