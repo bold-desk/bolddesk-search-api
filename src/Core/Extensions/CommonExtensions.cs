@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="FluentValidationExtensions.cs" company="Syncfusion Private Limited">
+// <copyright file="CommonExtensions.cs" company="Syncfusion Private Limited">
 // Copyright (c) Syncfusion Private Limited. All rights reserved.
 // </copyright>
 // <author>Syncfusion Bold Desk Team</author>

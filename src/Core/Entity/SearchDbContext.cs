@@ -54,7 +54,9 @@ public partial class SearchDbContext : OrganizationDbContext
     {
         this.organization = organization;
         this.user = user;
+#pragma warning disable EF1001
         string? connectionString = options?.FindExtension<Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal.NpgsqlOptionsExtension>()?.ConnectionString;
+#pragma warning restore EF1001
         ConnectionString = string.IsNullOrWhiteSpace(connectionString) ? GetDBConnectionString() : connectionString;
     }
 
@@ -76,7 +78,9 @@ public partial class SearchDbContext : OrganizationDbContext
 
         if (optionsBuilder.IsConfigured)
         {
+#pragma warning disable EF1001
             var connectionValues = optionsBuilder.Options.GetExtension<Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal.NpgsqlOptionsExtension>();
+#pragma warning restore EF1001
             ConnectionString = connectionValues.ConnectionString;
             return;
         }

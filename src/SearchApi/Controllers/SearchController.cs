@@ -27,6 +27,11 @@ using Syncfusion.HelpDesk.Organization.Data.Entity;
 [ApiController]
 public class SearchController : BaseController
 {
+    /// <summary>
+    /// To search and send results.
+    /// </summary>
+    /// <param name="searchtext">searchtext.</param>
+    /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
     [HttpGet]
     [Route("{searchtext}")]
     ////[ProducesResponseType(typeof(List<SearchObjects>), StatusCodes.Status200OK)]
@@ -34,7 +39,7 @@ public class SearchController : BaseController
     ////[SwaggerResponseExample(200, typeof(SearchObjectsExample))]
     [SwaggerOperation(Description = "While searching tickets - searchIn refers to searching in ticket title or description or both title and description, brandIds refers to list of brand IDs, statusIds refers to list of status IDs, categoryIds refers to list of category IDs, createdFrom and createdTo refer to the dates between which the ticket is created, includeArchivedTickets indicates whether to include archived tickets or to search only among active Tickets")]
     [HasPermission(PermissionEnum.AnyAuthenticatedAgentCanAccess)]
-    public async Task<ActionResult> SearchAsync(string searchtext)
+    public ActionResult Search(string searchtext)
     {
         if (string.IsNullOrWhiteSpace(searchtext))
         {

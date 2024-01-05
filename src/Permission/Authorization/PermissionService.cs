@@ -424,11 +424,11 @@ namespace BoldDesk.Permission.Authorization
                 long userDetailsId = user.UserId;
                 if (userId != null && userId > 0)
                 {
-                    var isUserAgent = (from user in context.Users.AsNoTracking()
-                                       where user.Id == userId
-                                       && user.UserTypeId == (int)UserTypeEnum.Agent
-                                       && user.UserStatusId == (int)UserStatusEnum.Active
-                                       select user).Any();
+                    var isUserAgent = await (from user in context.Users.AsNoTracking()
+                                             where user.Id == userId
+                                             && user.UserTypeId == (int)UserTypeEnum.Agent
+                                             && user.UserStatusId == (int)UserStatusEnum.Active
+                                             select user).AnyAsync().ConfigureAwait(false);
 
                     if (!isUserAgent)
                     {

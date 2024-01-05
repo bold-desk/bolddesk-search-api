@@ -95,7 +95,9 @@ namespace BoldDesk.Search.Core.Services
                 }
                 else
                 {
+#pragma warning disable CS8601 // Possible null reference assignment.
                     status.Result = settingsValueList.FirstOrDefault();
+#pragma warning restore CS8601 // Possible null reference assignment.
                 }
 
                 if (!string.IsNullOrEmpty(status.Result))
@@ -117,7 +119,7 @@ namespace BoldDesk.Search.Core.Services
             var apiSettings = new object();
             if (id == (int)SettingTypeEnum.AgentPortalSettings)
             {
-                var apiSettingsForAPI = JsonConvert.DeserializeObject<OrganizationSearchSettings>(status.Result)!;
+                var apiSettingsForAPI = JsonConvert.DeserializeObject<OrganizationSearchSettings>(status.Result) !;
                 apiSettingsForAPI.BrandId = organization.BrandId;
                 apiSettingsForAPI.DefaultLanguageName = defaultLanguageName.Name;
                 apiSettingsForAPI.DefaultLanguageId = defaultLanguageName.Id;

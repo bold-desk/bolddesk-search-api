@@ -160,7 +160,10 @@ public class UserInfo
             return this;
         }
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         IsAuthenticated = user.Identity.IsAuthenticated;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+
         var claims = user.Claims?.ToList();
 
         if (!IsAuthenticated)

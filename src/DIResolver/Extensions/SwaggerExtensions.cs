@@ -90,7 +90,6 @@ public static class SwaggerExtensions
             });
 
             c.SchemaFilter<FluentValidationRules>();
-            //c.AddFluentValidationRules();
         });
 
         services.AddSwaggerExamplesFromAssemblyOf<SearchResultObjectExample>();

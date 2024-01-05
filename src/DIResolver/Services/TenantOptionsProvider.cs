@@ -53,7 +53,9 @@ namespace Syncfusion.HelpDesk.DIResolver.Services
         public virtual TOptions CurrentValue => Get(Options.DefaultName);
 
         /// <inheritdoc/>
+#pragma warning disable CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
         public TOptions Get(string name)
+#pragma warning restore CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
         {
             var org = httpContextAccessor.HttpContext.GetTenantContext<OrganizationInfo>();
 

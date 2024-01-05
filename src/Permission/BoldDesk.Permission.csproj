@@ -10,12 +10,14 @@
     <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>bin\Release\BoldDesk.Permission.xml</DocumentationFile>
+    <NoWarn>8600;8601;8602</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>bin\Release\BoldDesk.Permission.xml</DocumentationFile>
+    <NoWarn>8600;8601;8602</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

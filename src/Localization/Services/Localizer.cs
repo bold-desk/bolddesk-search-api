@@ -90,9 +90,9 @@ public class Localizer : ILocalizer
     {
         return localizer[resourceName];
 
-        //var resourceValue = localizer.WithCulture(new System.Globalization.CultureInfo(langShortCode))[resourceName];
+        ////var resourceValue = localizer.WithCulture(new System.Globalization.CultureInfo(langShortCode))[resourceName];
 
-        //return resourceValue.ResourceNotFound ? localizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
+        ////return resourceValue.ResourceNotFound ? localizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
     }
 
     /// <summary>
@@ -105,9 +105,9 @@ public class Localizer : ILocalizer
     {
         return baseLocalizer[resourceName];
 
-        //var resourceValue = baseLocalizer.WithCulture(new System.Globalization.CultureInfo(langShortCode))[resourceName];
+        ////var resourceValue = baseLocalizer.WithCulture(new System.Globalization.CultureInfo(langShortCode))[resourceName];
 
-        //return resourceValue.ResourceNotFound ? baseLocalizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
+        ////return resourceValue.ResourceNotFound ? baseLocalizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
     }
 
     /// <summary>
@@ -120,8 +120,8 @@ public class Localizer : ILocalizer
     {
         return placeholderLocalizer[resourceName];
 
-        //var resourceValue = placeholderLocalizer.WithCulture(new System.Globalization.CultureInfo(langShortCode))[resourceName];
+        ////var resourceValue = placeholderLocalizer.WithCulture(new System.Globalization.CultureInfo(langShortCode))[resourceName];
 
-        //return resourceValue.ResourceNotFound ? placeholderLocalizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
+        ////return resourceValue.ResourceNotFound ? placeholderLocalizer.WithCulture(new System.Globalization.CultureInfo("en-Us"))[resourceName] : resourceValue;
     }
 }

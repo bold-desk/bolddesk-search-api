@@ -7,5 +7,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1200:Using directives should be placed correctly", Justification = "Okay in Program.cs file.")]
-[assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1516:ElementsMustBeSeparatedByBlankLine", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Roslynator", "RCS1097:Remove redundant 'ToString' call", Justification = "Ok here.", Scope = "member", Target = "~M:BoldDesk.Search.DIResolver.Filters.AddHasPermissionParameterOperationFilter.HasAttribute(System.Reflection.MethodInfo,System.Type,System.Boolean)~System.String")]

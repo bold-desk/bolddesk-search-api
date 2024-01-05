@@ -21,6 +21,7 @@ searchApiBuilder.Services.ConfigureServices(configuration);
 
 // Configure the HTTP request pipeline.
 var searchApi = searchApiBuilder.Build();
+
 searchApi.BuildApplication();
 
 // Run the web api.
