@@ -1,6 +1,6 @@
 #tool "nuget:?package=xunit.runner.console"
 #tool "nuget:?package=JetBrains.dotCover.CommandLineTools"
-#addin nuget:?package=Cake.FileHelpers&version=4.0.1
+#addin nuget:?package=Cake.FileHelpers&version=6.1.3
 #addin "nuget:?package=Newtonsoft.Json&version=13.0.2"
 #addin "nuget:?package=HtmlAgilityPack"
 using System.Text.RegularExpressions;
