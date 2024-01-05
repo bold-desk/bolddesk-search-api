@@ -111,7 +111,7 @@ timestamps
 		{
 			gitlabCommitStatus("Code violation")
 			{
-				bat 'powershell.exe -ExecutionPolicy ByPass -File build/build.ps1 -Script '+env.WORKSPACE+"/build/build.cake -Target codeviolation"+ " -settings_skipverification=true"
+				bat 'powershell.exe -ExecutionPolicy ByPass -File build/build.ps1 -Script '+env.WORKSPACE+"/build/build.cake -Target codeviolation"+ " --settings_skipverification=true"
 			}
 		}
 		catch(Exception e)
