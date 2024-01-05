@@ -28,3 +28,4 @@ temporaryfiles
 package-lock.json
 .vscode
 build/time.txt
+build/integrationtime.txt

@@ -39,12 +39,14 @@ https://cakebuild.net
 Param(
     [string]$Script = "build.cake",
     [string]$Target = "Default",
-    [string]$nugetserverurl="",
+	[string]$nugetserverurl="",
     [string]$buildNumber="",
     [string]$sourceBranch="",
-    [string]$nugetapikey="",
-    [string]$revisionNumber="",
-    [string]$StudioVersion="3.1.0.1",
+	[string]$apiServerIP="", 	
+	[string]$apiServerPort="", 	
+	[string]$apiServerUserName="", 	
+	[string]$apiServerPassword="", 	
+	[string]$apiSiteName="",
 	[string]$repository="",
     [ValidateSet("Release", "Debug")]
     [string]$Configuration = "Release",

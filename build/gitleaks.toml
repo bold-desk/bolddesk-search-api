@@ -24,11 +24,10 @@ paths = [
 	'''compile-dependencies''',
 	'''packages''',
 	'''bin''',
-	'''obj''', 
-	'''.*appsettings.*[a-zA-Z]*(.json)$''', #excluding appsetting files from secret scanning
-    '''SecretCredential.json''', #excluding SecretCredential.json from secret scanning
-    '''Organization.json''', #excluding Organization.json file from secret scanning
-	'''EmailSenderCredential.json''' #excluding EmailSenderCredential.json file from secret scanning
+	'''obj''',
+    '''test''', #excluding test folder from secret scanning
+    '''.*appsettings.*[a-zA-Z]*(.json)$''', #excluding from secret scanning
+    '''WhatsAppService.cs'''
 ]
 
 [[rules]]
